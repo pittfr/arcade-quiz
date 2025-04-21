@@ -1,1 +1,1 @@
-# arcade-quiz
+# Arcade Quiz Game
