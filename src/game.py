@@ -16,6 +16,8 @@ class Game:
 
         self.stateManager.addState("starting", StartingState(self))
         self.stateManager.addState("menu", MenuState(self))
+        self.stateManager.addState("quiz", QuizState(self))
+        self.stateManager.addState("gameover", GameoverState(self))
 
         self.stateManager.changeState("starting")
 
