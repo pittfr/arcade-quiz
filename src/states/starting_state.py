@@ -14,7 +14,7 @@ class StartingState(GameState):
                             visible=True,
                             text="Starting state"
                             )
-        
+
         self.current_events = []
 
     def handle_events(self, events):

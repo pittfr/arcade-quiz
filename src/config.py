@@ -1,6 +1,6 @@
 # window dimensions
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
 
 # game settings
 FRAMERATE = 60
