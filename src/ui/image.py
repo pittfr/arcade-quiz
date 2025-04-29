@@ -11,28 +11,39 @@ class Image:
         self.fixed_height = fixed_height
         self.preserve_aspect_ratio = preserve_aspect_ratio
         self.visible = visible
+
+        self.original_image = None
+        self.original_rect = None
+        self.image = None
+        self.rect = None
         
         # load the image
         self._load_image()
-    
+
     def _load_image(self):
         try:
-            # load the original image
-            self.original_image = pygame.image.load(self.image_path).convert_alpha()
-            self.original_rect = self.original_image.get_rect()
+            self.original_image = pygame.image.load(self.image_path)
             
-            # apply transformations
+            if(self.original_image.get_alpha() is not None):
+                self.original_image = self.original_image.convert_alpha()
+            else:
+                self.original_image = self.original_image.convert()
+            
+            self.original_rect = self.original_image.get_rect()
             self._apply_transformations()
             
-        except pygame.error as e:
+        except Exception as e:
             print(f"could not load image {self.image_path}: {e}")
             # create a placeholder for failed loads
             self.image = pygame.Surface((100, 100))
-            self.image.fill((255, 0, 255))  # magenta as an error indicator
+            self.image.fill((255, 0, 255))
             self.rect = self.image.get_rect()
             self.rect.center = self.pos
     
     def _apply_transformations(self):
+        if self.original_image is None:
+            return
+
         orig_width = self.original_rect.width
         orig_height = self.original_rect.height
         
@@ -42,19 +53,13 @@ class Image:
             new_width = self.fixed_width
             new_height = self.fixed_height
         elif self.fixed_width is not None:
-            # Width fixed, calculate height
+            # width fixed, calculate height
             new_width = self.fixed_width
-            if self.preserve_aspect_ratio:
-                new_height = int(new_width * orig_height / orig_width)
-            else:
-                new_height = orig_height
+            new_height = int(new_width * orig_height / orig_width) if self.preserve_aspect_ratio else orig_height
         elif self.fixed_height is not None:
             # height fixed, calculate width
             new_height = self.fixed_height
-            if self.preserve_aspect_ratio:
-                new_width = int(new_height * orig_width / orig_height)
-            else:
-                new_width = orig_width
+            new_width = int(new_height * orig_width / orig_height) if self.preserve_aspect_ratio else orig_width
         else:
             # apply scale factor
             new_width = int(orig_width * self.scale)
@@ -74,7 +79,8 @@ class Image:
     def setPosition(self, pos):
         if pos != self.pos:
             self.pos = pos
-            self.rect.center = pos
+            if self.rect:
+                self.rect.center = pos
     
     def setScale(self, scale):
         if scale != self.scale:
@@ -107,7 +113,6 @@ class Image:
         self.visible = visible
     
     def draw(self, surface):
-        if not self.visible:
-            return
+        if self.visible and self.image and self.rect:
+            surface.blit(self.image, self.rect)
         
-        surface.blit(self.image, self.rect)

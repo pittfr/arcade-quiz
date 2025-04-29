@@ -80,28 +80,29 @@ class Button:
         return self.text
 
     def setText(self, new_text):
-        self.text = new_text
-        
-        # recreate text surface with new text
-        self.text_surface = self.font.render(self.text, True, self.text_color)
-        text_width = self.text_surface.get_width()
-        
-        # store original center position to keep the button in the same spot
-        old_center = self.visual_rect.center
-        
-        # recalculate visual dimensions based on new text
-        self.visual_width = text_width + self.padding[0] * 2
-        self.visual_height = self.font.get_height() + self.padding[1] * 2
+        if(self.text != new_text):
+            self.text = new_text
 
-        if self.fixed_width is not None and self.fixed_width > self.visual_width:
-            self.visual_width = self.fixed_width
-        if self.fixed_height is not None and self.fixed_height > self.visual_height:
-            self.visual_height = self.fixed_height
-        
-        self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
-        
-        # maintain the button's position
-        self.visual_rect.center = old_center
-        
-        # update hitbox to match new visual dimensions
-        self.rect = self.visual_rect.copy()
+            # recreate text surface with new text
+            self.text_surface = self.font.render(self.text, True, self.text_color)
+            text_width = self.text_surface.get_width()
+            
+            # store original center position to keep the button in the same spot
+            old_center = self.visual_rect.center
+            
+            # recalculate visual dimensions based on new text
+            self.visual_width = text_width + self.padding[0] * 2
+            self.visual_height = self.font.get_height() + self.padding[1] * 2
+
+            if self.fixed_width is not None and self.fixed_width > self.visual_width:
+                self.visual_width = self.fixed_width
+            if self.fixed_height is not None and self.fixed_height > self.visual_height:
+                self.visual_height = self.fixed_height
+            
+            self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
+            
+            # maintain the button's position
+            self.visual_rect.center = old_center
+            
+            # update hitbox to match new visual dimensions
+            self.rect = self.visual_rect.copy()
