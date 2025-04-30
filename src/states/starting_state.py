@@ -19,13 +19,13 @@ class StartingState(GameState):
 
     def handle_events(self, events):
         self.current_events = events
-        # for event in events:
-        #     if event.type == pygame.KEYDOWN:
-        #         self.game.stateManager.changeState("menu")
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                self.game.stateManager.changeState("menu")
 
     def update(self):
         pass
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill((214, 229, 190))
+        self.game.screen.fill((0, 144, 211))
         self.stateLabel.draw(screen)

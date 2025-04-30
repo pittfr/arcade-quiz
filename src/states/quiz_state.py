@@ -16,5 +16,5 @@ class QuizState(GameState):
         pass
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill((187, 216, 236))
+        self.game.screen.fill((0, 144, 211))
         self.stateLabel.draw(screen)

@@ -16,5 +16,5 @@ class MenuState(GameState):
         pass
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill((220, 204, 234))
+        self.game.screen.fill((0, 144, 211))
         self.stateLabel.draw(screen)

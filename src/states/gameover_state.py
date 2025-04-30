@@ -16,5 +16,5 @@ class GameoverState(GameState):
         pass
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill((255, 218, 180))
+        self.game.screen.fill((0, 144, 211))
         self.stateLabel.draw(screen)
