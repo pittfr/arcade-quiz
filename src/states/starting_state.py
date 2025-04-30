@@ -6,14 +6,32 @@ from ui import *
 class StartingState(GameState):
     def __init__(self, game):
         super().__init__(game)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 64)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 80)
+        self.start_font = pygame.font.Font(DEFAULT_FONT_PATH, 50)
 
-        self.stateLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2),
+        self.quizLabel = Label(
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4),
                             font=self.default_font,
                             visible=True,
-                            text="Starting state"
+                            text="QUIZ"
                             )
+
+        self.informaticaLabel = Label(
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2.60),
+                            font=self.default_font,
+                            visible=True,
+                            text="INFORMÁTICA"
+                            )
+        
+        self.startLabel = Label(
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 1.5),
+                            font=self.start_font,
+                            visible=True,
+                            text="START!"
+                            )
+        
+        self.startBox = pygame.Rect(0, 0, WINDOW_WIDTH // 4, WINDOW_HEIGHT // 8)
+        self.startBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 1.5)
 
         self.current_events = []
 
@@ -27,5 +45,11 @@ class StartingState(GameState):
         pass
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill((0, 144, 211))
-        self.stateLabel.draw(screen)
+        self.game.screen.fill(BLUE)
+
+        self.quizLabel.draw(screen)
+        self.informaticaLabel.draw(screen)
+
+        pygame.draw.rect(screen, DARK_BLUE, self.startBox, 0, 30)
+
+        self.startLabel.draw(screen)
