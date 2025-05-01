@@ -39,7 +39,7 @@ class Image:
             self.image.fill((255, 0, 255))
             self.rect = self.image.get_rect()
             self.rect.center = self.pos
-    
+
     def _apply_transformations(self):
         if self.original_image is None:
             return
@@ -75,18 +75,18 @@ class Image:
         # position the image
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
-    
+
     def setPosition(self, pos):
         if pos != self.pos:
             self.pos = pos
             if self.rect:
                 self.rect.center = pos
-    
+
     def setScale(self, scale):
         if scale != self.scale:
             self.scale = scale
             self._apply_transformations()
-    
+
     def setDimensions(self, width=None, height=None):
         changed = False
         if width != self.fixed_width:
@@ -98,21 +98,25 @@ class Image:
         
         if changed:
             self._apply_transformations()
-    
+
+    def getDimensions(self):
+        if self.rect:
+            return (self.rect.width, self.rect.height)
+        return (0, 0)
+
     def setAspectRatioMode(self, preserve):
         if preserve != self.preserve_aspect_ratio:
             self.preserve_aspect_ratio = preserve
             self._apply_transformations()
-    
+
     def setImage(self, image_path):
         if image_path != self.image_path:
             self.image_path = image_path
             self._load_image()
-    
+
     def setVisibility(self, visible):
         self.visible = visible
-    
+
     def draw(self, surface):
         if self.visible and self.image and self.rect:
             surface.blit(self.image, self.rect)
-        
