@@ -41,7 +41,7 @@ class StartingState(GameState):
         
         fireDimensions = self.fireImage.getDimensions()
 
-        self.fireBox = pygame.Rect(0, 0, fireDimensions[0] * 3, fireDimensions[1] * 1.3)
+        self.fireBox = pygame.Rect(0, 0, fireDimensions[0] * 3.5, fireDimensions[1] * 1.3)
         self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT// 8)
 
         self.current_events = []
