@@ -44,7 +44,7 @@ class QuizState(GameState):
         self.questionImage = None
         
         self.questionLabel = Label(
-                                pos=(WINDOW_WIDTH // 2, 85),
+                                pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 9),
                                 text="",
                                 font=self.default_font,
                                 anchor="midtop"
@@ -207,7 +207,7 @@ class QuizState(GameState):
         for button in self.option_buttons:
             button.update(events, delta_time, self.showing_feedback)
         
-    def update(self):
+    def update(self, delta_time):
         # update feedback timer
         if self.showing_feedback and self.feedback_timer > 0:
             self.feedback_timer -= 1/FRAMERATE

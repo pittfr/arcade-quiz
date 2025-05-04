@@ -3,7 +3,7 @@ import pygame
 class Label:
     def __init__(self, pos, text, font, text_color=(255, 255, 255),
                  visible=True, highlighted=False, highlight_color=None,
-                 anchor="center"):
+                 anchor="center", opacity=255):
         
         self.text = text
         self.font = font
@@ -13,6 +13,7 @@ class Label:
         self.highlighted = highlighted
         self.highlight_color = highlight_color
         self.anchor = anchor
+        self.opacity = max(0, min(255, opacity))
         
         self._update_surface()
     
@@ -20,7 +21,19 @@ class Label:
         """update the text surface when text or font changes"""
         # use highlight color if highlighted and highlight_color is set
         render_color = self.highlight_color if self.highlighted and self.highlight_color else self.text_color
+        
+        # create the initial text surface
         self.text_surface = self.font.render(self.text, True, render_color)
+        
+        # apply opacity if not fully opaque
+        if self.opacity < 255:
+            # create a copy that supports alpha
+            if self.text_surface.get_alpha() is None:
+                self.text_surface = self.text_surface.convert_alpha()
+            
+            # set the alpha value
+            self.text_surface.set_alpha(self.opacity)
+        
         self.rect = self.text_surface.get_rect()
         
         if self.rect is not None:
@@ -60,6 +73,15 @@ class Label:
             self.highlighted = highlighted
             self._update_surface()
     
+    def setOpacity(self, opacity):
+        """set the transparency of the text (0-255)"""
+        # ensure opacity is within valid range
+        opacity = max(0, min(255, int(opacity)))
+        
+        if opacity != self.opacity:
+            self.opacity = opacity
+            self._update_surface()
+
     def draw(self, surface):
         """draw label on the given surface"""
         if not self.visible:

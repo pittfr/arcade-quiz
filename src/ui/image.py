@@ -2,7 +2,7 @@ import pygame
 
 class Image:
     def __init__(self, pos, image_path, scale=1.0, fixed_width=None, fixed_height=None, 
-                 preserve_aspect_ratio=True, visible=True):
+                 preserve_aspect_ratio=True, visible=True, anchor="center", opacity=255):
         
         self.pos = pos
         self.image_path = image_path
@@ -11,6 +11,8 @@ class Image:
         self.fixed_height = fixed_height
         self.preserve_aspect_ratio = preserve_aspect_ratio
         self.visible = visible
+        self.anchor = anchor
+        self.opacity = max(0, min(255, opacity))
 
         self.original_image = None
         self.original_rect = None
@@ -38,7 +40,7 @@ class Image:
             self.image = pygame.Surface((100, 100))
             self.image.fill((255, 0, 255))
             self.rect = self.image.get_rect()
-            self.rect.center = self.pos
+            setattr(self.rect, self.anchor, self.pos)
 
     def _apply_transformations(self):
         if self.original_image is None:
@@ -71,16 +73,39 @@ class Image:
         else:
             # prevent zero-sized images
             self.image = self.original_image
+            
+        # apply opacity if not fully opaque
+        if self.opacity < 255:
+            # create a copy that supports alpha
+            if self.image.get_alpha() is None:
+                self.image = self.image.convert_alpha()
+            
+            # set the alpha value
+            self.image.set_alpha(self.opacity)
         
-        # position the image
+        # position the image based on anchor
         self.rect = self.image.get_rect()
-        self.rect.center = self.pos
+        setattr(self.rect, self.anchor, self.pos)
 
     def setPosition(self, pos):
+        """change the position of the image"""
         if pos != self.pos:
             self.pos = pos
             if self.rect:
-                self.rect.center = pos
+                setattr(self.rect, self.anchor, pos)
+
+    def setAnchor(self, anchor):
+        """change the anchor point"""
+        if anchor != self.anchor:
+            # store current position
+            old_pos = self.pos
+            
+            # update anchor
+            self.anchor = anchor
+            
+            # reapply position with new anchor
+            if self.rect:
+                setattr(self.rect, self.anchor, old_pos)
 
     def setScale(self, scale):
         if scale != self.scale:
@@ -116,6 +141,14 @@ class Image:
 
     def setVisibility(self, visible):
         self.visible = visible
+        
+    def setOpacity(self, opacity):
+        # ensure opacity is within valid range
+        opacity = max(0, min(255, int(opacity)))
+        
+        if opacity != self.opacity:
+            self.opacity = opacity
+            self._apply_transformations()
 
     def draw(self, surface):
         if self.visible and self.image and self.rect:

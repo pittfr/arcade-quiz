@@ -12,7 +12,7 @@ class MenuState(GameState):
     def handle_events(self, events, delta_time):
         pass
 
-    def update(self):
+    def update(self, delta_time):
         pass
 
     def draw(self, delta_time, screen):

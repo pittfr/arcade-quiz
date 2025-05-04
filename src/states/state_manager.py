@@ -23,10 +23,10 @@ class StateManager:
         if self.current_state:
             self.current_state.handle_events(events, delta_time)
             
-    def update(self):
+    def update(self, delta_time):
         """update the current state"""
         if self.current_state:
-            self.current_state.update()
+            self.current_state.update(delta_time)
             
     def draw(self, delta_time, screen):
         """draw the current state"""

@@ -19,7 +19,7 @@ class Game:
         self.stateManager.addState("quiz", QuizState(self))
         self.stateManager.addState("gameover", GameoverState(self))
 
-        self.stateManager.changeState("starting")
+        self.stateManager.changeState("gameover")
 
         self.score = 0
 
@@ -36,7 +36,7 @@ class Game:
         self.stateManager.handleEvents(events, self.delta_time)
 
     def update(self):
-        self.stateManager.update()
+        self.stateManager.update(self.delta_time)
 
     def draw(self, delta_time):
         

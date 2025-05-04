@@ -6,18 +6,18 @@ from ui import *
 class StartingState(GameState):
     def __init__(self, game):
         super().__init__(game)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 90)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 100)
         self.start_font = pygame.font.Font(DEFAULT_FONT_PATH, 50)
 
         self.quizLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4),
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2.3),
                             font=self.default_font,
                             visible=True,
                             text="QUIZ"
                             )
 
         self.informaticaLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2.60),
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 1.7),
                             font=self.default_font,
                             visible=True,
                             text="INFORMÁTICA"
@@ -34,7 +34,7 @@ class StartingState(GameState):
         self.startBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 1.5)
 
         self.fireImage = Image(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT// 8),
+                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT// 3.5),
                             image_path="assets/images/firecsm.png",
                             scale=0.2
                             )
@@ -42,7 +42,7 @@ class StartingState(GameState):
         fireDimensions = self.fireImage.getDimensions()
 
         self.fireBox = pygame.Rect(0, 0, fireDimensions[0] * 3.5, fireDimensions[1] * 1.3)
-        self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT// 8)
+        self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT// 3.5)
 
         self.current_events = []
 
@@ -52,7 +52,7 @@ class StartingState(GameState):
             if event.type == pygame.KEYDOWN:
                 self.game.stateManager.changeState("quiz")
 
-    def update(self):
+    def update(self, delta_time):
         pass
 
     def draw(self, delta_time, screen):
@@ -61,9 +61,9 @@ class StartingState(GameState):
         self.quizLabel.draw(screen)
         self.informaticaLabel.draw(screen)
 
-        pygame.draw.rect(screen, DARK_BLUE, self.startBox, 0, 30)
+        # pygame.draw.rect(screen, DARK_BLUE, self.startBox, 0, 30)
 
-        self.startLabel.draw(screen)
+        # self.startLabel.draw(screen)
 
         pygame.draw.rect(screen, DARK_BLUE, self.fireBox, 0, 50)
 
