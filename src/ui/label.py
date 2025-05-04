@@ -2,7 +2,8 @@ import pygame
 
 class Label:
     def __init__(self, pos, text, font, text_color=(255, 255, 255),
-                 visible=True, highlighted=False, highlight_color=None):
+                 visible=True, highlighted=False, highlight_color=None,
+                 anchor="center"):
         
         self.text = text
         self.font = font
@@ -11,6 +12,7 @@ class Label:
         self.visible = visible
         self.highlighted = highlighted
         self.highlight_color = highlight_color
+        self.anchor = anchor
         
         self._update_surface()
     
@@ -22,7 +24,7 @@ class Label:
         self.rect = self.text_surface.get_rect()
         
         if self.rect is not None:
-            self.rect.center = self.pos
+            setattr(self.rect, self.anchor, self.pos)
     
     def setText(self, text):
         """change the displayed text"""
@@ -40,6 +42,12 @@ class Label:
         """change the position of the label"""
         if pos != self.pos:
             self.pos = pos
+            self._update_surface()
+
+    def setAnchor(self, anchor):
+        """change the anchor point"""
+        if anchor != self.anchor:
+            self.anchor = anchor
             self._update_surface()
     
     def setVisibility(self, visible):

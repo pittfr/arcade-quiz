@@ -2,7 +2,8 @@ import pygame
 
 class Button:
     def __init__(self, pos, action=None, text="", font=None, text_color=(255, 255, 255), 
-                 bg_color=None, padding=(0, 0), border_radius=5, sound=None, key=None, width=None, height=None):
+                 bg_color=None, padding=(0, 0), border_radius=5, sound=None, key=None, 
+                 width=None, height=None, anchor="center"):
         
         self.action = action
         self.clicked = False
@@ -10,6 +11,7 @@ class Button:
         self.border_radius = border_radius
         self.sound = sound
         self.key = key
+        self.anchor = anchor
                 
         self.text = text
         self.font = font
@@ -37,7 +39,9 @@ class Button:
             self.visual_height = self.fixed_height
         
         self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
-        self.visual_rect.center = pos
+        
+        # position the button based on anchor
+        setattr(self.visual_rect, self.anchor, pos)
             
         # set hitbox to match visual dimensions
         self.rect = self.visual_rect.copy()
@@ -56,7 +60,6 @@ class Button:
                         self.sound.play()
                     if self.action:
                         self.action()
-
                     return True
             
             # reset key_pressed when key is released
@@ -87,8 +90,8 @@ class Button:
             self.text_surface = self.font.render(self.text, True, self.text_color)
             text_width = self.text_surface.get_width()
             
-            # store original center position to keep the button in the same spot
-            old_center = self.visual_rect.center
+            # store original anchor position to keep the button positioned correctly
+            old_pos = getattr(self.visual_rect, self.anchor)
             
             # recalculate visual dimensions based on new text
             self.visual_width = text_width + self.padding[0] * 2
@@ -101,8 +104,31 @@ class Button:
             
             self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
             
-            # maintain the button's position
-            self.visual_rect.center = old_center
+            # maintain the button's position based on anchor
+            setattr(self.visual_rect, self.anchor, old_pos)
             
             # update hitbox to match new visual dimensions
+            self.rect = self.visual_rect.copy()
+            
+    def setPosition(self, pos):
+        """change the position of the button"""
+        current_pos = getattr(self.visual_rect, self.anchor)
+        if pos != current_pos:
+            setattr(self.visual_rect, self.anchor, pos)
+            self.rect = self.visual_rect.copy()
+            
+    def setAnchor(self, anchor):
+        """change the anchor point of the button"""
+        if anchor != self.anchor:
+            # get current position based on old anchor
+            old_pos = getattr(self.visual_rect, self.anchor)
+            
+            # update anchor
+            self.anchor = anchor
+            
+            # reposition using new anchor
+            self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
+            setattr(self.visual_rect, self.anchor, old_pos)
+            
+            # update hitbox
             self.rect = self.visual_rect.copy()

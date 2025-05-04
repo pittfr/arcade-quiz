@@ -50,7 +50,7 @@ class StartingState(GameState):
         self.current_events = events
         for event in events:
             if event.type == pygame.KEYDOWN:
-                self.game.stateManager.changeState("menu")
+                self.game.stateManager.changeState("quiz")
 
     def update(self):
         pass
