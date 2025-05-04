@@ -17,6 +17,18 @@ class QuizState(GameState):
         self.feedback_timer = 0
         self.showing_feedback = False
         
+        # store original button colors for resetting
+        self.original_button_colors = {
+            'option1': B_RED,
+            'option2': B_BLUE,
+            'option3': B_GREEN,
+            'option4': B_YELLOW
+        }
+        
+        # feedback colors
+        self.correct_color = (50, 200, 50)    # green for correct answers
+        self.incorrect_color = (200, 50, 50)  # red for incorrect answers
+        
         # UI Elements
         self.progressLabel = Label(
                             pos=(WINDOW_WIDTH // 2, 20),
@@ -38,7 +50,7 @@ class QuizState(GameState):
                                 anchor="midtop"
                                 )
 
-        # buttons
+                # buttons
         b_border_radius = 10
         b_font = pygame.font.Font(DEFAULT_FONT_PATH, 30)
         b_dimensions = (WINDOW_WIDTH // 2.3, WINDOW_HEIGHT // 8)
@@ -95,6 +107,14 @@ class QuizState(GameState):
                                 key=button4Key,
                                 action=lambda: self._check_answer(3)
                                 )
+        
+        # store buttons in a list for easier access
+        self.option_buttons = [
+            self.option1Button, 
+            self.option2Button, 
+            self.option3Button, 
+            self.option4Button
+        ]
 
     def _load_current_question(self):
         question = self.quiz_manager.getCurrentQuestion()
@@ -112,6 +132,9 @@ class QuizState(GameState):
         self.option2Button.setText(question['options'][1])
         self.option3Button.setText(question['options'][2])
         self.option4Button.setText(question['options'][3])
+        
+        # reset button colors
+        self._reset_button_colors()
         
         # load question image if available
         if question['image_path']:
@@ -132,12 +155,27 @@ class QuizState(GameState):
         
         # reset feedback
         self.showing_feedback = False
-        
+                
     def _check_answer(self, selected_index):
         if self.showing_feedback:
             return
         
         correct = self.quiz_manager.checkAnswer(selected_index)
+
+        if correct:
+            self.game.score += 1
+
+        correct_answer_index = self.quiz_manager.getCurrentQuestion()['answer_index']
+
+        # set button colors based on correctness
+        for i, button in enumerate(self.option_buttons):
+            if i == correct_answer_index:
+                # highlight the correct answer in green
+                button.setBgColor(self.correct_color)
+            elif i != correct_answer_index:
+                # if this is the selected answer and it's wrong, make it red
+                button.setBgColor(self.incorrect_color)
+        
 
         # update progress display
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
@@ -145,21 +183,29 @@ class QuizState(GameState):
         # start feedback timer
         self.feedback_timer = 2.0  # show feedback for 2 seconds
         self.showing_feedback = True
+    
+    def _reset_button_colors(self):
+        """reset all button colors to their original values"""
+        self.option1Button.setBgColor(self.original_button_colors['option1'])
+        self.option2Button.setBgColor(self.original_button_colors['option2'])
+        self.option3Button.setBgColor(self.original_button_colors['option3'])
+        self.option4Button.setBgColor(self.original_button_colors['option4'])
         
     def _next_question(self):
+        # reset all button key states
+        for button in self.option_buttons:
+            button.resetKeyState()
+
         if self.quiz_manager.nextQuestion():
             self._load_current_question()
         else:
             # end of quiz
             self.game.stateManager.changeState("gameover")
         
-    def handle_events(self, events):
+    def handle_events(self, events, delta_time):
         # process button clicks only if not showing feedback
-        if not self.showing_feedback:
-            self.option1Button.update(events)
-            self.option2Button.update(events)
-            self.option3Button.update(events)
-            self.option4Button.update(events)
+        for button in self.option_buttons:
+            button.update(events, delta_time, self.showing_feedback)
         
     def update(self):
         # update feedback timer
@@ -186,10 +232,8 @@ class QuizState(GameState):
             screen.blit(self.questionImage, image_rect)
         
         # draw option buttons
-        self.option1Button.draw(screen)
-        self.option2Button.draw(screen)
-        self.option3Button.draw(screen)
-        self.option4Button.draw(screen)
+        for button in self.option_buttons:
+            button.draw(screen)
             
         # add feedback text
         if self.showing_feedback:
@@ -199,3 +243,6 @@ class QuizState(GameState):
         # reset quiz when entering this state
         self.quiz_manager.reset()
         self._load_current_question()
+        self.showing_feedback = False
+        # reset the game score when starting a new quiz
+        self.game.score = 0

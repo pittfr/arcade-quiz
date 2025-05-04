@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         self.windowRes = (WINDOW_WIDTH, WINDOW_HEIGHT)
         self.screen = pygame.display.set_mode(self.windowRes)
-        pygame.display.set_caption("CSMIGUEL Sabe+")
+        pygame.display.set_caption("QUIZ INFORMÁTICA")
 
         self.clock = pygame.time.Clock()
         self.running = True
@@ -23,14 +23,17 @@ class Game:
 
         self.score = 0
 
+        self.delta_time = self.clock.tick(FRAMERATE) / 1000.0
+
     def handleEvents(self):
         events = pygame.event.get()
+        
 
         for event in events:
             if event.type == pygame.QUIT:
                 self.running = False
         
-        self.stateManager.handleEvents(events)
+        self.stateManager.handleEvents(events, self.delta_time)
 
     def update(self):
         self.stateManager.update()

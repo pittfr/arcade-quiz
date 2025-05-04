@@ -17,6 +17,11 @@ class Button:
         self.font = font
         self.text_color = text_color
         self.bg_color = bg_color
+        self.starting_bg_color = bg_color
+        self.target_bg_color = bg_color
+        self.transition_progress = 1
+        self.transition_duration = 0.3
+
         self.padding = padding
         self.fixed_width = width
         self.fixed_height = height
@@ -46,25 +51,48 @@ class Button:
         # set hitbox to match visual dimensions
         self.rect = self.visual_rect.copy()
         
-    def update(self, events):
+    def update(self, events, delta_time, showingFeedback):
         # reset state
         self.clicked = False
 
+        if 0 <= self.transition_progress <= 1:
+            self.transition_progress += delta_time / self.transition_duration
+            self.transition_progress = min(self.transition_progress, 1)
+
+            # Here - interpolate between starting color and target color
+            r1, g1, b1 = self.starting_bg_color
+            r2, g2, b2 = self.target_bg_color
+            
+            # Linear interpolation for each color component
+            r = r1 + (r2 - r1) * self.transition_progress
+            g = g1 + (g2 - g1) * self.transition_progress
+            b = b1 + (b2 - b1) * self.transition_progress
+            
+            # Update the current background color
+            self.bg_color = (int(r), int(g), int(b))
+        else:
+            if self.bg_color != self.target_bg_color:
+                self.bg_color = self.target_bg_color
+                self.starting_bg_color = self.bg_color
+        
         for event in events:
             # handle key press
             if event.type == pygame.KEYDOWN and event.key == self.key:
-                if not self.key_pressed:
-                    self.key_pressed = True
-                    self.clicked = True
-                    if self.sound:
-                        self.sound.play()
-                    if self.action:
-                        self.action()
-                    return True
-            
-            # reset key_pressed when key is released
-            elif event.type == pygame.KEYUP and event.key == self.key:
-                self.key_pressed = False
+                if not showingFeedback:
+
+                    if not self.key_pressed:
+                        self.key_pressed = True
+                        self.clicked = True
+                        if self.sound:
+                            self.sound.play()
+                        if self.action:
+                            self.action()
+                        print(f"{self.text} button has been pressed")
+                        return True
+                
+                    # reset key_pressed when key is released
+                    elif event.type == pygame.KEYUP and event.key == self.key:
+                        self.key_pressed = False
                 
         return False
                 
@@ -111,9 +139,11 @@ class Button:
             self.rect = self.visual_rect.copy()
     
     def setBgColor(self, color):
-        """change the background color of the button"""
+        """set the target background color for smooth transition"""
         if self.bg_color != color:
-            self.bg_color = color
+            self.target_bg_color = color
+            self.starting_bg_color = self.bg_color
+            self.transition_progress = 0
             
     def setPosition(self, pos):
         """change the position of the button"""
@@ -137,3 +167,7 @@ class Button:
             
             # update hitbox
             self.rect = self.visual_rect.copy()
+
+    def resetKeyState(self):
+        """reset the key pressed state"""
+        self.key_pressed = False

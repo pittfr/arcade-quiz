@@ -18,10 +18,10 @@ class StateManager:
         else:
             print(f"state {state_id} not found!")
             
-    def handleEvents(self, events):
+    def handleEvents(self, events, delta_time):
         """handle events in the current state"""
         if self.current_state:
-            self.current_state.handle_events(events)
+            self.current_state.handle_events(events, delta_time)
             
     def update(self):
         """update the current state"""

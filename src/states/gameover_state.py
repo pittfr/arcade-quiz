@@ -9,7 +9,7 @@ class GameoverState(GameState):
         self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 64)
         self.stateLabel = Label(pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2), font=self.default_font, visible=True, text="Gameover state")
 
-    def handle_events(self, events):
+    def handle_events(self, events, delta_time):
         pass
 
     def update(self):
