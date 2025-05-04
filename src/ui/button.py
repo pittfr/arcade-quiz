@@ -109,6 +109,11 @@ class Button:
             
             # update hitbox to match new visual dimensions
             self.rect = self.visual_rect.copy()
+    
+    def setBgColor(self, color):
+        """change the background color of the button"""
+        if self.bg_color != color:
+            self.bg_color = color
             
     def setPosition(self, pos):
         """change the position of the button"""

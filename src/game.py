@@ -21,6 +21,8 @@ class Game:
 
         self.stateManager.changeState("starting")
 
+        self.score = 0
+
     def handleEvents(self):
         events = pygame.event.get()
 
