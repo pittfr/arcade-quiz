@@ -3,79 +3,109 @@ from states import GameState
 from config import *
 from ui import *
 from utils import ease_in_out
+from utils.animation import Animation
 
 class GameoverState(GameState):
     def __init__(self, game):
         super().__init__(game)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 64)
+        self.scoreLabel_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 120)
         
-        self.logoPath = "assets/images/logo.png"
-        self.logoImage = Image(
-                            pos=(10, 10),
-                            image_path=self.logoPath,
-                            scale=0.1,
-                            anchor="topleft",
+        self.circleRadius = 0
+        self.foregroundOpacity = 0
+
+        self.fireImage = Image(
+                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.25)),
+                            image_path="assets/images/firecsm.png",
+                            scale=0.3
+                            )
+        
+        self.scoreLabel = Label(
+                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.425)),
+                            text="Pontuação",
+                            font=self.scoreLabel_font,
+                            text_color=DARK_BLUE,
                             opacity=0
                             )
         
-        self.logoOpacity = 0
-        self.targetLogoOpacity = 255
-
-        self.circleRadius = 0
-        self.targetCircleRadius = 250
-
-        self.circle_animation_delay = 1.5
-        self.circle_delay_timer = 0
-        self.circle_animation_progress = 0
-        self.circle_animation_duration = 4
+        self.scoreValueLabel = Label(
+                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.575)),
+                            text="20/20",
+                            font=self.default_font,
+                            text_color=DARK_BLUE,
+                            opacity=0
+                            )
         
-        self.logo_animation_progress = 0
-        self.logo_animation_duration = 3
+        self.foregroundRect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+        
+        # create animations
+        self.circle_animation = Animation(0, 250, 4.0, 1.5)
+        self.fire_animation = Animation(0, 255, 5.0, 5.5)
+        self.scoreLabel_animation = Animation(0, 255, 4.5, 6.0)
+        self.scoreValue_animation = Animation(0, 255, 4.0, 7.5)
+
+        self.foreground_animation = Animation(0, 255, 4.0, 30.0)
+
 
     def handle_events(self, events, delta_time):
         pass
 
     def update(self, delta_time):
-        if 0 <= self.logo_animation_progress <= 1:
-            self.logo_animation_progress += delta_time / self.logo_animation_duration
-            self.logo_animation_progress = min(self.logo_animation_progress, 1)
+        # update animations and apply their values
+        self.circleRadius = self.circle_animation.update(delta_time)
+        
+        fire_opacity = int(self.fire_animation.update(delta_time))
+        self.fireImage.setOpacity(fire_opacity)
+        
+        scoreLabel_opacity = int(self.scoreLabel_animation.update(delta_time))
+        self.scoreLabel.setOpacity(scoreLabel_opacity)
 
-            logo_eased_progress = ease_in_out(self.logo_animation_progress)
-            self.logoOpacity = int(self.targetLogoOpacity * logo_eased_progress)
-            self.logoImage.setOpacity(self.logoOpacity)
-        else:
-            if self.logoOpacity != self.targetLogoOpacity:
-                self.logoOpacity = self.targetLogoOpacity
-                self.logoImage.setOpacity(self.logoOpacity)
+        scoreValue_opacity = int(self.scoreValue_animation.update(delta_time))
+        self.scoreValueLabel.setOpacity(scoreValue_opacity)
 
-        if self.circle_delay_timer < self.circle_animation_delay:
-            # count down the delay timer
-            self.circle_delay_timer += delta_time
-        else:
-            # once delay is over, start the animation
-            if 0 <= self.circle_animation_progress <= 1:
-                self.circle_animation_progress += delta_time / self.circle_animation_duration
-                self.circle_animation_progress = min(self.circle_animation_progress, 1)
+        self.foregroundOpacity = int(self.foreground_animation.update(delta_time))
 
-                eased_progress = ease_in_out(self.circle_animation_progress)
-                self.circleRadius = self.targetCircleRadius * eased_progress
-            else:
-                if self.circleRadius != self.targetCircleRadius:
-                    self.circleRadius = self.targetCircleRadius
+        if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
+            self.game.stateManager.changeState("starting")
 
     def enter(self):
-        self.logo_animation_progress = 0
-        self.circle_animation_progress = 0
+        # convert score to string to ensure setText can handle it properly
+        if hasattr(self.game, 'score'):
+            score_text = f" {self.game.score}/20" if self.game.score < 10 else f"{self.game.score}/20"
+        else:
+            score_text = " 0/20"  # default if score is not set
+            
+        self.scoreValueLabel.setText(score_text)
 
-        self.circle_delay_timer = 0
-        self.circleRadius = 0
+        # reset all animations when entering the state
+        self.fire_animation.reset()
+        self.circle_animation.reset()
+        self.scoreLabel_animation.reset()
+        self.scoreValue_animation.reset()
+        self.foreground_animation.reset()
+        
+        # reset UI elements
+        self.fireImage.setOpacity(0)
+        self.scoreLabel.setOpacity(0)
+        self.scoreValueLabel.setOpacity(0)
+        self.foregroundOpacity = 0
 
-        self.logoOpacity = 0
-        self.logoImage.setOpacity(0)
 
     def draw(self, delta_time, screen):
         self.game.screen.fill(BLUE)
         
-        self.logoImage.draw(screen)
+        pygame.draw.circle(screen, WHITE, (int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.5)), int(self.circleRadius))
 
-        pygame.draw.circle(screen, WHITE, (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2), self.circleRadius)
+        self.scoreLabel.draw(screen)
+
+        self.scoreValueLabel.draw(screen)
+
+        self.fireImage.draw(screen)
+
+        if self.foregroundOpacity > 0:
+            if self.foregroundOpacity > 0:
+                foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+                foreground_color = (*BLUE[:3], self.foregroundOpacity)
+                foreground_surface.fill(foreground_color)
+                screen.blit(foreground_surface, (0, 0))
+        # pygame.draw.rect(screen, BLUE, self.foregroundRect)
