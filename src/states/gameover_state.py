@@ -94,7 +94,7 @@ class GameoverState(GameState):
     def draw(self, delta_time, screen):
         self.game.screen.fill(BLUE)
         
-        pygame.draw.circle(screen, WHITE, (int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.5)), int(self.circleRadius))
+        pygame.draw.circle(screen, WHITE, (int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.45)), int(self.circleRadius))
 
         self.scoreLabel.draw(screen)
 
