@@ -12,6 +12,8 @@ class StartingState(GameState):
 
         self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 120)
 
+        self.foregroundOpacity = 0
+
         self.quizLabel = Label(
                             pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2.3),
                             font=self.default_font,
@@ -95,6 +97,8 @@ class StartingState(GameState):
             self.informaticaLabel.setOpacity(informatica_opacity)
 
     def enter(self):
+        self.startingQuiz = False
+
         # reset all animations when entering the state
         self.informaticaLabel_animation.reset()
         self.quizLabel_animation.reset()
@@ -105,6 +109,9 @@ class StartingState(GameState):
         # reset UI elements
         self.informaticaLabel.setOpacity(0)
         self.quizLabel.setOpacity(0)
+        self.fireBox.width = 0
+        self.fireBox.height = 0
+        self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3.5)
         self.fireImage.setOpacity(0)
         self.foregroundOpacity = 0
 

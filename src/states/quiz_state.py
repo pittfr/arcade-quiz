@@ -2,7 +2,9 @@ import pygame
 from states import GameState
 from config import *
 from ui import *
+from utils.animation import Animation
 from quiz_manager import QuizManager
+
 
 class QuizState(GameState):
     def __init__(self, game):
@@ -10,6 +12,10 @@ class QuizState(GameState):
         self.progress_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
         self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 75)
         
+        self.isQuizOver = False
+
+        self.foregroundOpacity = 0
+
         # create quiz manager
         self.quiz_manager = QuizManager(QUESTIONS_PATH)
         
@@ -31,17 +37,27 @@ class QuizState(GameState):
         
         # UI Elements
         self.progressLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, 20),
+                            pos=(WINDOW_WIDTH // 2, -100),
                             text=f" 0/{self.quiz_manager.total_questions}",
                             font=self.progress_font,
                             text_color=WHITE,
                             anchor="midtop"
                             )
         
-        self.imagePlaceHolderBox = pygame.Rect(0, 0, WINDOW_WIDTH // 2.5, WINDOW_HEIGHT // 2.5)
-        self.imagePlaceHolderBox.midtop = (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4)
-
-        self.questionImage = None
+        # image dimensions
+        image_width = WINDOW_WIDTH // 2.5
+        image_height = WINDOW_HEIGHT // 2.5
+        
+        # create question image object
+        self.questionImage = Image(
+            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4),
+            image_path="assets/images/placeholder.png",  # default image path
+            fixed_width=image_width,
+            fixed_height=image_height,
+            preserve_aspect_ratio=True,
+            anchor="midtop",
+            border_radius=10
+        )
         
         self.questionLabel = Label(
                                 pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 8),
@@ -50,14 +66,21 @@ class QuizState(GameState):
                                 anchor="midtop"
                                 )
 
-                # buttons
+        # buttons
         b_border_radius = 10
         b_font = pygame.font.Font(DEFAULT_FONT_PATH, 30)
         b_dimensions = (WINDOW_WIDTH // 2.3, WINDOW_HEIGHT // 8)
         b_anchor = "midtop"
 
+        self.targetYB1 = (int(WINDOW_WIDTH * 0.275), int(WINDOW_HEIGHT * 0.70))
+        self.targetYB2 = (int(WINDOW_WIDTH * 0.725), int(WINDOW_HEIGHT * 0.70))
+        self.targetYB3 = (int(WINDOW_WIDTH * 0.275), int(WINDOW_HEIGHT * 0.85))
+        self.targetYB4 = (int(WINDOW_WIDTH * 0.725), int(WINDOW_HEIGHT * 0.85))
+
+        self.buttonStartYOffset = 1000
+
         self.option1Button = Button(
-                                pos=(int(WINDOW_WIDTH * 0.275), int(WINDOW_HEIGHT * 0.70)),
+                                pos=((self.targetYB1[0]), (self.targetYB1[1] + self.buttonStartYOffset)),
                                 text="",
                                 border_radius=b_border_radius,
                                 font=b_font,
@@ -68,9 +91,9 @@ class QuizState(GameState):
                                 key=button1Key,
                                 action=lambda: self._check_answer(0)
                                 )
-        
+
         self.option2Button = Button(
-                                pos=(int(WINDOW_WIDTH * 0.725), int(WINDOW_HEIGHT * 0.70)),
+                                pos=((self.targetYB2[0]), (self.targetYB2[1] + self.buttonStartYOffset)),
                                 text="",
                                 border_radius=b_border_radius,
                                 font=b_font,
@@ -83,7 +106,7 @@ class QuizState(GameState):
                                 )
         
         self.option3Button = Button(
-                                pos=(int(WINDOW_WIDTH * 0.275), int(WINDOW_HEIGHT * 0.85)),
+                                pos=((self.targetYB3[0]), (self.targetYB3[1] + self.buttonStartYOffset)),
                                 text="",
                                 border_radius=b_border_radius,
                                 font=b_font,
@@ -96,7 +119,7 @@ class QuizState(GameState):
                                 )
         
         self.option4Button = Button(
-                                pos=(int(WINDOW_WIDTH * 0.725), int(WINDOW_HEIGHT * 0.85)),
+                                pos=((self.targetYB4[0]), (self.targetYB4[1] + self.buttonStartYOffset)),
                                 text="",
                                 border_radius=b_border_radius,
                                 font=b_font,
@@ -115,6 +138,20 @@ class QuizState(GameState):
             self.option3Button, 
             self.option4Button
         ]
+
+        # create animations
+
+        self.progressLabel_animation = Animation(-200, 20, 3.0, 2.0)
+
+        self.questionLabel_animation = Animation(0, 255, 4.0, 8.5)
+        self.questionImage_animation = Animation(0, 255, 4.0, 10.5)
+
+        self.button1_animation = Animation(self.targetYB1[1] + self.buttonStartYOffset, self.targetYB1[1], 4.0, 2.5)
+        self.button2_animation = Animation(self.targetYB2[1] + self.buttonStartYOffset, self.targetYB2[1], 4.0, 3.0)
+        self.button3_animation = Animation(self.targetYB3[1] + self.buttonStartYOffset, self.targetYB3[1], 4.0, 3.5)
+        self.button4_animation = Animation(self.targetYB4[1] + self.buttonStartYOffset, self.targetYB4[1], 4.0, 4.0)
+
+        self.foreground_animation = Animation(0, 255, 4.0)
 
     def _load_current_question(self):
         question = self.quiz_manager.getCurrentQuestion()
@@ -138,17 +175,10 @@ class QuizState(GameState):
         
         # load question image if available
         if question['image_path']:
-            try:
-                self.questionImage = pygame.image.load(question['image_path']).convert_alpha()
-                # scale to fit placeholder
-                self.questionImage = pygame.transform.scale(
-                    self.questionImage, 
-                    (self.imagePlaceHolderBox.width - 20, self.imagePlaceHolderBox.height - 20)
-                )
-            except:
-                self.questionImage = None
+                self.questionImage.setPath(question['image_path'], animate=True)
         else:
-            self.questionImage = None
+            # set to a default placeholder image
+            self.questionImage.setPath("assets/images/placeholder.png", animate=True)
         
         # update progress display
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
@@ -200,19 +230,87 @@ class QuizState(GameState):
             self._load_current_question()
         else:
             # end of quiz
-            self.game.stateManager.changeState("gameover")
+            self.isQuizOver = True
         
     def handle_events(self, events, delta_time):
-        # process button clicks only if not showing feedback
+        # process button clicks
         for button in self.option_buttons:
-            button.update(events, delta_time, self.showing_feedback)
+            button.update(events, delta_time, self.showing_feedback, not self.questionImage_animation.is_complete)
         
     def update(self, delta_time):
+        # update the image animation
+        self.questionImage.update()
+        
         # update feedback timer
         if self.showing_feedback and self.feedback_timer > 0:
             self.feedback_timer -= 1/FRAMERATE
             if self.feedback_timer <= 0:
                 self._next_question()
+
+        if self.isQuizOver:
+            self.foregroundOpacity = int(self.foreground_animation.update(delta_time))
+
+            if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
+                self.game.stateManager.changeState("gameover")
+
+        else:
+            # progress label animation
+            progressLabelY = int(self.progressLabel_animation.update(delta_time))
+            self.progressLabel.setPosition((WINDOW_WIDTH // 2, progressLabelY))
+
+            # question label animation
+            questionLabelOpacity = int(self.questionLabel_animation.update(delta_time))
+            self.questionLabel.setOpacity(questionLabelOpacity)
+            
+            # question image animation
+            questionImageOpacity = int(self.questionImage_animation.update(delta_time))
+            self.questionImage.setOpacity(questionImageOpacity)
+
+            # button animations
+            button1Y = int(self.button1_animation.update(delta_time))
+            self.option1Button.setPosition((self.targetYB1[0], button1Y))
+
+            button2Y = int(self.button2_animation.update(delta_time))
+            self.option2Button.setPosition((self.targetYB2[0], button2Y))
+
+            button3Y = int(self.button3_animation.update(delta_time))
+            self.option3Button.setPosition((self.targetYB3[0], button3Y))
+
+            button4Y = int(self.button4_animation.update(delta_time))
+            self.option4Button.setPosition((self.targetYB4[0], button4Y))
+
+    def enter(self):
+        # reset quiz when entering this state
+        self.quiz_manager.reset()
+        self._load_current_question()
+        self.showing_feedback = False
+        self.isQuizOver = False
+        # reset the game score when starting a new quiz
+        self.game.score = 0
+
+        # reset all animations when entering the state
+        self.progressLabel_animation.reset()
+        self.questionLabel_animation.reset()
+        self.questionImage_animation.reset()
+
+        self.button1_animation.reset()
+        self.button2_animation.reset()
+        self.button3_animation.reset()
+        self.button4_animation.reset()
+
+        self.foreground_animation.reset()
+
+        # reset UI elements
+        self.progressLabel.setPosition((WINDOW_WIDTH // 2, self.progressLabel_animation.start_value))
+        self.questionLabel.setOpacity(self.questionLabel_animation.start_value)
+        self.questionImage.setOpacity(self.questionImage_animation.start_value)
+
+        self.option1Button.setPosition((self.targetYB1[0], self.targetYB1[1] + self.buttonStartYOffset))
+        self.option2Button.setPosition((self.targetYB2[0], self.targetYB2[1] + self.buttonStartYOffset))
+        self.option3Button.setPosition((self.targetYB3[0], self.targetYB3[1] + self.buttonStartYOffset))
+        self.option4Button.setPosition((self.targetYB4[0], self.targetYB4[1] + self.buttonStartYOffset))
+
+        self.foregroundOpacity = 0
 
     def draw(self, delta_time, screen):
         self.game.screen.fill(BLUE)
@@ -223,26 +321,16 @@ class QuizState(GameState):
         # draw question
         self.questionLabel.draw(screen)
 
-        # draw image placeholder box
-        pygame.draw.rect(screen, DARK_BLUE, self.imagePlaceHolderBox, 0, 10)
-        
-        # draw question image if available
-        if self.questionImage:
-            image_rect = self.questionImage.get_rect(center=self.imagePlaceHolderBox.center)
-            screen.blit(self.questionImage, image_rect)
+        # draw the question image
+        self.questionImage.draw(screen)
         
         # draw option buttons
         for button in self.option_buttons:
             button.draw(screen)
-            
-        # add feedback text
-        if self.showing_feedback:
-            pass
-                
-    def enter(self):
-        # reset quiz when entering this state
-        self.quiz_manager.reset()
-        self._load_current_question()
-        self.showing_feedback = False
-        # reset the game score when starting a new quiz
-        self.game.score = 0
+
+        if self.foregroundOpacity > 0:
+            foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+            foreground_color = (*BLUE[:3], self.foregroundOpacity)
+            foreground_surface.fill(foreground_color)
+            screen.blit(foreground_surface, (0, 0))
+        # pygame.draw.rect(screen, BLUE, self.foregroundRect)

@@ -21,7 +21,7 @@ class GameoverState(GameState):
                             )
         
         self.scoreLabel = Label(
-                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.425)),
+                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.45)),
                             text="Pontuação",
                             font=self.scoreLabel_font,
                             text_color=DARK_BLUE,

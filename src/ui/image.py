@@ -1,8 +1,10 @@
 import pygame
+import time
 
 class Image:
     def __init__(self, pos, image_path, scale=1.0, fixed_width=None, fixed_height=None, 
-                 preserve_aspect_ratio=True, visible=True, anchor="center", opacity=255):
+                 preserve_aspect_ratio=True, visible=True, anchor="center", opacity=255,
+                 border_radius=0, fade_duration=0.5):
         
         self.pos = pos
         self.image_path = image_path
@@ -13,11 +15,22 @@ class Image:
         self.visible = visible
         self.anchor = anchor
         self.opacity = max(0, min(255, opacity))
+        self.border_radius = border_radius
+        self.fade_duration = fade_duration
 
         self.original_image = None
         self.original_rect = None
         self.image = None
         self.rect = None
+        
+        # animation properties
+        self.animating = False
+        self.animation_start_time = 0
+        self.animation_target_opacity = self.opacity
+        self.animation_start_opacity = self.opacity
+        self.temp_image_path = None
+        self.transition_image = None
+        self.current_image = None
         
         # load the image
         self._load_image()
@@ -74,6 +87,10 @@ class Image:
             # prevent zero-sized images
             self.image = self.original_image
             
+        # apply border radius if needed
+        if self.border_radius > 0:
+            self._apply_border_radius()
+            
         # apply opacity if not fully opaque
         if self.opacity < 255:
             # create a copy that supports alpha
@@ -86,6 +103,64 @@ class Image:
         # position the image based on anchor
         self.rect = self.image.get_rect()
         setattr(self.rect, self.anchor, self.pos)
+    
+    def _apply_border_radius(self):
+        """apply rounded corners to the image"""
+        if self.border_radius <= 0 or self.image is None:
+            return
+            
+        # create a surface with per-pixel alpha
+        sized_image = self.image.copy()
+        if sized_image.get_alpha() is None:
+            sized_image = sized_image.convert_alpha()
+            
+        w, h = sized_image.get_size()
+        radius = min(self.border_radius, min(w, h) // 2)  # limit radius to half of smallest dimension
+        
+        # create a mask surface with rounded corners
+        mask = pygame.Surface((w, h), pygame.SRCALPHA)
+        mask.fill((0, 0, 0, 0))  # transparent
+        
+        # draw rounded rectangle on the mask
+        pygame.draw.rect(mask, (255, 255, 255, 255), (0, 0, w, h), 
+                         border_radius=radius)
+        
+        # apply the mask to our image
+        sized_image.blit(mask, (0, 0), special_flags=pygame.BLEND_RGBA_MIN)
+        self.image = sized_image
+
+    def update(self):
+        """update animation states"""
+        if not self.animating:
+            return
+            
+        # calculate current progress of the animation
+        current_time = time.time()
+        progress = min(1.0, (current_time - self.animation_start_time) / self.fade_duration)
+        
+        if progress >= 1.0:
+            # animation complete
+            self.animating = False
+            self.opacity = self.animation_target_opacity
+            
+            # if we were fading out to change image, now load the new image
+            if self.temp_image_path:
+                self.image_path = self.temp_image_path
+                self.temp_image_path = None
+                self._load_image()
+                
+                # start fade in
+                self.animation_start_opacity = 0
+                self.animation_target_opacity = 255
+                self.opacity = 0
+                self.animation_start_time = time.time()
+                self.animating = True
+        else:
+            # update opacity based on progress
+            current_opacity = int(self.animation_start_opacity + 
+                              (self.animation_target_opacity - self.animation_start_opacity) * progress)
+            self.opacity = current_opacity
+            self._apply_transformations()
 
     def setPosition(self, pos):
         """change the position of the image"""
@@ -138,6 +213,33 @@ class Image:
         if image_path != self.image_path:
             self.image_path = image_path
             self._load_image()
+            
+    def setPath(self, image_path, animate=True):
+        """change the image with a fade transition"""
+        if image_path == self.image_path:
+            return
+            
+        if animate:
+            # start fade out animation
+            self.temp_image_path = image_path
+            self.animation_start_opacity = self.opacity
+            self.animation_target_opacity = 0
+            self.animation_start_time = time.time()
+            self.animating = True
+        else:
+            # change immediately without animation
+            self.image_path = image_path
+            self._load_image()
+
+    def setBorderRadius(self, radius):
+        """set rounded corners radius"""
+        if radius != self.border_radius:
+            self.border_radius = radius
+            self._apply_transformations()
+            
+    def setFadeDuration(self, duration):
+        """set the duration of fade animations in seconds"""
+        self.fade_duration = max(0.1, duration)  # ensure minimum sensible duration
 
     def setVisibility(self, visible):
         self.visible = visible

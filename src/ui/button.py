@@ -89,7 +89,7 @@ class Button:
         if self.fixed_height is not None and self.fixed_height > self.visual_height:
             self.visual_height = self.fixed_height
     
-    def update(self, events, delta_time, showingFeedback):
+    def update(self, events, delta_time, showingFeedback, isDisabled):
         # reset state
         self.clicked = False
 
@@ -116,7 +116,7 @@ class Button:
         for event in events:
             # handle key press
             if event.type == pygame.KEYDOWN and event.key == self.key:
-                if not showingFeedback:
+                if not showingFeedback and not isDisabled:
 
                     if not self.key_pressed:
                         self.key_pressed = True
