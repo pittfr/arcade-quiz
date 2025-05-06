@@ -22,12 +22,26 @@ class QuizManager:
                 # process each question
                 for q in selected_questions:
                     # convert answer from string to integer
-                    answer_index = int(q.get('answer', 0))
+                    original_answer_index = int(q.get('answer', 0))
+                    
+                    # get the options and the correct answer
+                    options = q.get('options', ['', '', '', ''])
+                    correct_answer = options[original_answer_index]
+                    
+                    # create pairs of (option, is_correct)
+                    option_pairs = [(option, i == original_answer_index) for i, option in enumerate(options)]
+                    
+                    # shuffle the pairs
+                    random.shuffle(option_pairs)
+                    
+                    # extract the shuffled options and find the new index of the correct answer
+                    shuffled_options = [pair[0] for pair in option_pairs]
+                    new_answer_index = [i for i, pair in enumerate(option_pairs) if pair[1]][0]
                     
                     self.questions.append({
                         'text': q.get('question', ''),
-                        'options': q.get('options', ['', '', '', '']),
-                        'answer_index': answer_index,
+                        'options': shuffled_options,
+                        'answer_index': new_answer_index,
                         'image_path': q.get('image_path', None)
                     })
                 
