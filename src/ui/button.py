@@ -20,28 +20,14 @@ class Button:
         self.starting_bg_color = bg_color
         self.target_bg_color = bg_color
         self.transition_progress = 1
-        self.transition_duration = 0.3
+        self.transition_duration = .6
 
         self.padding = padding
         self.fixed_width = width
         self.fixed_height = height
-            
-        # get font height
-        font_height = self.font.get_height()
-            
-        # create text surfaces
-        self.text_surface = self.font.render(self.text, True, self.text_color)
-        text_width = self.text_surface.get_width()
-            
-        # calculate visual dimensions based on the font size
-        self.visual_width = text_width + padding[0] * 2
-        self.visual_height = font_height + padding[1] * 2
         
-        # override with fixed dimensions if provided and larger than calculated dimensions
-        if self.fixed_width is not None and self.fixed_width > self.visual_width:
-            self.visual_width = self.fixed_width
-        if self.fixed_height is not None and self.fixed_height > self.visual_height:
-            self.visual_height = self.fixed_height
+        # calculate dimensions and create text surfaces
+        self._update_text_surfaces()
         
         self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
         
@@ -51,6 +37,58 @@ class Button:
         # set hitbox to match visual dimensions
         self.rect = self.visual_rect.copy()
         
+    def _update_text_surfaces(self):
+        """create text surfaces with word wrapping if fixed width is provided."""
+        font_height = self.font.get_height()
+        
+        if self.fixed_width is None:
+            # no word wrapping needed
+            self.text_surfaces = [self.font.render(self.text, True, self.text_color)]
+            text_width = self.text_surfaces[0].get_width()
+            
+            self.visual_width = text_width + self.padding[0] * 2
+            self.visual_height = font_height + self.padding[1] * 2
+        else:
+            # apply word wrapping for fixed width
+            max_text_width = self.fixed_width - (self.padding[0] * 2)
+            
+            # create wrapped text
+            self.text_surfaces = []
+            words = self.text.split()
+            current_line = ""
+            
+            for word in words:
+                test_line = current_line + word + " " if current_line else word + " "
+                test_surface = self.font.render(test_line.strip(), True, self.text_color)
+                
+                if test_surface.get_width() <= max_text_width:
+                    current_line = test_line
+                else:
+                    # line is full, render it and start a new line
+                    if current_line:
+                        self.text_surfaces.append(self.font.render(current_line.strip(), True, self.text_color))
+                    current_line = word + " "
+            
+            # add the last line if it's not empty
+            if current_line:
+                self.text_surfaces.append(self.font.render(current_line.strip(), True, self.text_color))
+            
+            # if no fixed_width provided text or failed to wrap, create at least one surface
+            if not self.text_surfaces:
+                self.text_surfaces = [self.font.render(self.text, True, self.text_color)]
+            
+            # calculate the widest text surface
+            max_surface_width = max([surf.get_width() for surf in self.text_surfaces])
+            
+            self.visual_width = self.fixed_width
+            # height depends on number of lines
+            total_text_height = len(self.text_surfaces) * font_height
+            self.visual_height = total_text_height + self.padding[1] * 2
+        
+        # override with fixed height if provided and larger than calculated height
+        if self.fixed_height is not None and self.fixed_height > self.visual_height:
+            self.visual_height = self.fixed_height
+    
     def update(self, events, delta_time, showingFeedback):
         # reset state
         self.clicked = False
@@ -99,36 +137,31 @@ class Button:
     def draw(self, surface):
         # draw background if there is one and it's not transparent
         pygame.draw.rect(surface, self.bg_color, self.visual_rect, border_radius=self.border_radius)
-            
-        # draw text
-        text_surf = self.font.render(self.text, True, self.text_color)
-            
-        # center text in the button
-        text_rect = text_surf.get_rect(center=self.visual_rect.center)
-        surface.blit(text_surf, text_rect)
+        
+        # calculate starting Y position to center text block vertically
+        font_height = self.font.get_height()
+        total_text_height = len(self.text_surfaces) * font_height
+        start_y = self.visual_rect.centery - (total_text_height // 2)
+        
+        # draw each line of text
+        for i, text_surf in enumerate(self.text_surfaces):
+            # center each line horizontally
+            text_rect = text_surf.get_rect(centerx=self.visual_rect.centerx)
+            text_rect.y = start_y + (i * font_height)
+            surface.blit(text_surf, text_rect)
 
     def getText(self):
         return self.text
 
     def setText(self, new_text):
-        if(self.text != new_text):
+        if (self.text != new_text):
             self.text = new_text
-
-            # recreate text surface with new text
-            self.text_surface = self.font.render(self.text, True, self.text_color)
-            text_width = self.text_surface.get_width()
             
             # store original anchor position to keep the button positioned correctly
             old_pos = getattr(self.visual_rect, self.anchor)
             
-            # recalculate visual dimensions based on new text
-            self.visual_width = text_width + self.padding[0] * 2
-            self.visual_height = self.font.get_height() + self.padding[1] * 2
-
-            if self.fixed_width is not None and self.fixed_width > self.visual_width:
-                self.visual_width = self.fixed_width
-            if self.fixed_height is not None and self.fixed_height > self.visual_height:
-                self.visual_height = self.fixed_height
+            # recalculate text surfaces and dimensions
+            self._update_text_surfaces()
             
             self.visual_rect = pygame.Rect(0, 0, self.visual_width, self.visual_height)
             
