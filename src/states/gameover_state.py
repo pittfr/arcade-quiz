@@ -8,16 +8,16 @@ from utils.animation import Animation
 class GameoverState(GameState):
     def __init__(self, game):
         super().__init__(game)
-        self.scoreLabel_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 120)
+        self.scoreLabel_font = pygame.font.Font(DEFAULT_FONT_PATH, 80)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 130)
         
         self.circleRadius = 0
         self.foregroundOpacity = 0
 
         self.fireImage = Image(
-                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.25)),
+                            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.275)),
                             image_path="assets/images/firecsm.png",
-                            scale=0.3
+                            scale=0.5
                             )
         
         self.scoreLabel = Label(
@@ -39,12 +39,12 @@ class GameoverState(GameState):
         self.foregroundRect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         
         # create animations
-        self.circle_animation = Animation(0, 250, 4.0, 1.5)
+        self.circle_animation = Animation(0, 300, 4.0, 1.5)
         self.fire_animation = Animation(0, 255, 5.0, 5.5)
         self.scoreLabel_animation = Animation(0, 255, 4.5, 6.0)
         self.scoreValue_animation = Animation(0, 255, 4.0, 7.5)
 
-        self.foreground_animation = Animation(0, 255, 4.0, 30.0)
+        self.foreground_animation = Animation(0, 255, 4.0, 35.0)
 
 
     def handle_events(self, events, delta_time):
@@ -103,9 +103,8 @@ class GameoverState(GameState):
         self.fireImage.draw(screen)
 
         if self.foregroundOpacity > 0:
-            if self.foregroundOpacity > 0:
-                foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
-                foreground_color = (*BLUE[:3], self.foregroundOpacity)
-                foreground_surface.fill(foreground_color)
-                screen.blit(foreground_surface, (0, 0))
+            foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+            foreground_color = (*BLUE[:3], self.foregroundOpacity)
+            foreground_surface.fill(foreground_color)
+            screen.blit(foreground_surface, (0, 0))
         # pygame.draw.rect(screen, BLUE, self.foregroundRect)

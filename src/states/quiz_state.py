@@ -7,8 +7,8 @@ from quiz_manager import QuizManager
 class QuizState(GameState):
     def __init__(self, game):
         super().__init__(game)
-        self.progress_font = pygame.font.Font(DEFAULT_FONT_PATH, 48)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
+        self.progress_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 75)
         
         # create quiz manager
         self.quiz_manager = QuizManager(QUESTIONS_PATH)
@@ -21,8 +21,8 @@ class QuizState(GameState):
         self.original_button_colors = {
             'option1': B_RED,
             'option2': B_BLUE,
-            'option3': B_GREEN,
-            'option4': B_YELLOW
+            'option3': B_YELLOW,
+            'option4': B_GREEN  
         }
         
         # feedback colors
@@ -44,7 +44,7 @@ class QuizState(GameState):
         self.questionImage = None
         
         self.questionLabel = Label(
-                                pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 9),
+                                pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 8),
                                 text="",
                                 font=self.default_font,
                                 anchor="midtop"

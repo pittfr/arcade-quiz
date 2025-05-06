@@ -1,8 +1,8 @@
 import pygame
 
 # window dimensions
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
+WINDOW_WIDTH = 1920
+WINDOW_HEIGHT = 1080
 
 # game settings
 FRAMERATE = 60
@@ -26,7 +26,7 @@ B_GREEN = (39, 164, 51)
 B_YELLOW = (238, 198, 43)
 
 #button keys
-button1Key = pygame.K_a
-button2Key = pygame.K_b
-button3Key = pygame.K_c
-button4Key = pygame.K_d
+button1Key = pygame.K_1
+button2Key = pygame.K_2
+button3Key = pygame.K_3
+button4Key = pygame.K_4
