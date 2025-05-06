@@ -85,6 +85,7 @@ class GameoverState(GameState):
         self.foreground_animation.reset()
         
         # reset UI elements
+        self.circleRadius = 0
         self.fireImage.setOpacity(0)
         self.scoreLabel.setOpacity(0)
         self.scoreValueLabel.setOpacity(0)
