@@ -11,7 +11,7 @@ class QuizManager:
         
     def loadQuestions(self, file_path):
         try:
-            with open(file_path, 'r') as file:
+            with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 all_questions = data.get('questions', [])
                 
