@@ -10,7 +10,7 @@ class QuizState(GameState):
     def __init__(self, game):
         super().__init__(game)
         self.progress_font = pygame.font.Font(DEFAULT_FONT_PATH, 60)
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 75)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 70)
         
         self.isQuizOver = False
 
@@ -45,25 +45,26 @@ class QuizState(GameState):
                             )
         
         # image dimensions
-        image_width = WINDOW_WIDTH // 2.5
-        image_height = WINDOW_HEIGHT // 2.5
+        image_width = WINDOW_WIDTH // 3
+        image_height = WINDOW_HEIGHT // 3
         
         # create question image object
         self.questionImage = Image(
-            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4),
+            pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.5) + int(WINDOW_HEIGHT * 0.02)),
             image_path=(IMAGES_PATH + "placeholder.png"),  # default image path
             fixed_width=image_width,
             fixed_height=image_height,
             preserve_aspect_ratio=True,
-            anchor="midtop",
+            anchor="center",
             border_radius=10
         )
         
         self.questionLabel = Label(
-                                pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 8),
+                                pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.1)),
                                 text="",
                                 font=self.default_font,
-                                anchor="midtop"
+                                anchor="midtop",
+                                max_width=WINDOW_WIDTH - int(WINDOW_WIDTH * 0.1)
                                 )
 
         # buttons
