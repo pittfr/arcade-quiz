@@ -16,7 +16,7 @@ class GameoverState(GameState):
 
         self.fireImage = Image(
                             pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.275)),
-                            image_path="assets/images/firecsm.png",
+                            image_path=(IMAGES_PATH + "firecsm.png"),
                             scale=0.5
                             )
         

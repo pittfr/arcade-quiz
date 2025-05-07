@@ -13,6 +13,10 @@ DEFAULT_FONT_PATH = "assets/fonts/main_font.ttf"
 # questions path
 QUESTIONS_PATH = "data/questions.json"
 
+# images path
+
+IMAGES_PATH = "assets/images/"
+
 #colors
 BLUE = (0, 144, 211)
 DARK_BLUE = (0, 123, 182)

@@ -51,7 +51,7 @@ class QuizState(GameState):
         # create question image object
         self.questionImage = Image(
             pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4),
-            image_path="assets/images/placeholder.png",  # default image path
+            image_path=(IMAGES_PATH + "placeholder.png"),  # default image path
             fixed_width=image_width,
             fixed_height=image_height,
             preserve_aspect_ratio=True,
@@ -178,7 +178,7 @@ class QuizState(GameState):
                 self.questionImage.setPath(question['image_path'], animate=True)
         else:
             # set to a default placeholder image
-            self.questionImage.setPath("assets/images/placeholder.png", animate=True)
+            self.questionImage.setPath(IMAGES_PATH + "placeholder.png", animate=True)
         
         # update progress display
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")

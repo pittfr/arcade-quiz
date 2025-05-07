@@ -32,7 +32,7 @@ class StartingState(GameState):
         
         self.fireImage = Image(
                             pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT// 3.5),
-                            image_path="assets/images/firecsm.png",
+                            image_path=(IMAGES_PATH + "firecsm.png"),
                             scale=0.3,
                             opacity=0,
                             )
