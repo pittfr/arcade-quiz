@@ -37,8 +37,11 @@ class Image:
 
     def _load_image(self):
         try:
-            self.original_image = pygame.image.load(self.image_path)
-            
+            if hasattr(self, 'quiz_manager') and self.quiz_manager:
+                self.original_image = self.quiz_manager.get_cached_image(self.image_path)
+            else:
+                self.original_image = pygame.image.load(self.image_path)
+                
             if(self.original_image.get_alpha() is not None):
                 self.original_image = self.original_image.convert_alpha()
             else:
@@ -137,7 +140,7 @@ class Image:
         # calculate current progress of the animation
         current_time = time.time()
         progress = min(1.0, (current_time - self.animation_start_time) / self.fade_duration)
-        
+                
         if progress >= 1.0:
             # animation complete
             self.animating = False

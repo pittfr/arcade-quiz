@@ -746,7 +746,7 @@
         "Protocolo de rede sem fios"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "hardware"
     },
     {
       "question": "O que significa a sigla “URL” no contexto da Internet?",
@@ -1297,17 +1297,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Qual é o nome do computador Deep Blue, famoso por vencer o campeão de xadrez Garry Kasparov?",
-      "options": [
-        "Um supercomputador desenvolvido pela IBM especializado em xadrez",
-        "Um programa de inteligência artificial de conversação do Google",
-        "Um vírus informático dos anos 90",
-        "Um jogo de computador muito popular na década de 2000"
-      ],
-      "answer": "0",
-      "theme": "historia"
     },
     {
       "question": "Qual é o formato que converte um nome de domínio em endereços IP?",

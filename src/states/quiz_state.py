@@ -59,6 +59,8 @@ class QuizState(GameState):
             border_radius=10
         )
         
+        self.questionImage.quiz_manager = self.quiz_manager
+        
         self.questionLabel = Label(
                                 pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.1)),
                                 text="",
@@ -174,9 +176,12 @@ class QuizState(GameState):
         # reset button colors
         self._reset_button_colors()
         
+        # get the image path from the question
+        image_path = question.get('image_path')
+        
         # load question image if available
-        if question['image_path']:
-                self.questionImage.setPath(question['image_path'], animate=True)
+        if image_path:
+            self.questionImage.setPath(image_path, animate=True)
         else:
             # set to a default placeholder image
             self.questionImage.setPath(IMAGES_PATH + "placeholder.png", animate=True)
