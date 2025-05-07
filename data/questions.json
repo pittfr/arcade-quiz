@@ -254,17 +254,6 @@
       "theme": "software"
     },
     {
-      "question": "Qual foi o primeiro programador da história, conhecido pelo seu trabalho com a Máquina Analítica de Charles Babbage?",
-      "options": [
-        "Ada Lovelace",
-        "Alan Turing",
-        "Bill Gates",
-        "Steve Jobs"
-      ],
-      "answer": "0",
-      "theme": "software"
-    },
-    {
       "question": "Qual empresa é conhecida por desenvolver os processadores Core i3, i5 e i7?",
       "options": [
         "Intel",
@@ -606,17 +595,6 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual destes termos se refere a roubo de informações sensíveis através de truques online (e-mails falsos, sites falsos)?",
-      "options": [
-        "Phishing",
-        "Debugging",
-        "Streaming",
-        "Uploading"
-      ],
-      "answer": "0",
-      "theme": "redes"
-    },
-    {
       "question": "Qual destes é um navegador de Internet?",
       "options": [
         "Google Chrome",
@@ -626,17 +604,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Qual linguagem é ensinada numa aplicação educativa de programação por blocos coloridos para crianças?",
-      "options": [
-        "Scratch",
-        "Assembly",
-        "C#",
-        "Fortran"
-      ],
-      "answer": "0",
-      "theme": "software"
     },
     {
       "question": "Qual termo descreve uma reunião com vídeo através da Internet?",
@@ -749,7 +716,7 @@
       "theme": "redes"
     },
     {
-      "question": "Que ação deves fazer regularmente para não perderes os teus ficheiros importantes em caso de avaria?",
+      "question": "O que deves fazer regularmente para não perderes ficheiros importantes em caso de avaria?",
       "options": [
         "Fazer backups (cópias de segurança)",
         "Reiniciar o computador todos os dias",
@@ -804,7 +771,7 @@
       "theme": "software"
     },
     {
-      "question": "Uma rede de computadores que abrange uma área geográfica ampla, como um país ou continente, chama-se:",
+      "question": "Uma rede de computadores que abrange uma área ampla, como um país ou continente, chama-se:",
       "options": [
         "WAN (Wide Area Network)",
         "LAN (Local Area Network)",
@@ -824,28 +791,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Como se chama o processo de converter texto ou imagens em código digital para serem processados por computador?",
-      "options": [
-        "Digitalização",
-        "Impressão",
-        "Renderização",
-        "Formatação"
-      ],
-      "answer": "0",
-      "theme": "historia"
-    },
-    {
-      "question": "Qual destes formatos de ficheiro é usado principalmente para documentos de texto prontos para impressão e visualização (não editáveis)?",
-      "options": [
-        "PDF",
-        "DOCX",
-        "TXT",
-        "MP3"
-      ],
-      "answer": "0",
-      "theme": "hardware"
     },
     {
       "question": "Qual das seguintes opções não é um tipo de rede social?",
@@ -903,17 +848,6 @@
       "theme": "redes"
     },
     {
-      "question": "Qual destas linguagens de programação é conhecida por ser usada no desenvolvimento de páginas web interativas do lado do cliente?",
-      "options": [
-        "JavaScript",
-        "Java",
-        "C",
-        "SQL"
-      ],
-      "answer": "0",
-      "theme": "software"
-    },
-    {
       "question": "O que é computação em nuvem (cloud computing)?",
       "options": [
         "Uso de servidores remotos para armazenar, processar e gerir dados via Internet",
@@ -925,7 +859,7 @@
       "theme": "historia"
     },
     {
-      "question": "Qual das seguintes afirmações sobre um SSD (Solid State Drive) e um HDD (Hard Disk Drive) está correta?",
+      "question": "Qual das afirmações sobre um SSD (Solid State Drive) e um HDD (Hard Disk Drive) está correta?",
       "options": [
         "Um SSD é geralmente mais rápido e silencioso que um HDD",
         "Um SSD tem partes móveis ao contrário do HDD",
@@ -1002,17 +936,6 @@
       "theme": "software"
     },
     {
-      "question": "Qual destes dispositivos é necessário para ligar vários computadores numa rede doméstica através de cabos?",
-      "options": [
-        "Switch",
-        "Impressora",
-        "Colunas",
-        "Scanner"
-      ],
-      "answer": "0",
-      "theme": "hardware"
-    },
-    {
       "question": "O que é um compilador em programação?",
       "options": [
         "Um programa que traduz código fonte para código executável",
@@ -1022,17 +945,6 @@
       ],
       "answer": "0",
       "theme": "software"
-    },
-    {
-      "question": "Qual termo descreve um ataque informático em que o utilizador é bloqueado de aceder aos seus dados até pagar um resgate?",
-      "options": [
-        "Ransomware",
-        "Spyware",
-        "Keylogger",
-        "Adware"
-      ],
-      "answer": "0",
-      "theme": "historia"
     },
     {
       "question": "Qual das seguintes pessoas é conhecida por ser um dos fundadores da Microsoft?",
@@ -1088,17 +1000,6 @@
       ],
       "answer": "0",
       "theme": "historia"
-    },
-    {
-      "question": "Qual destes termos está relacionado com a criação de sites sem necessidade de programar (arrastar e largar componentes)?",
-      "options": [
-        "Web design",
-        "Hacking",
-        "Compilação de código",
-        "Data Mining"
-      ],
-      "answer": "0",
-      "theme": "software"
     },
     {
       "question": "Quando visitas uma página com “https://”, o que significa o “s” no endereço?",
@@ -1189,17 +1090,6 @@
       "theme": "hardware"
     },
     {
-      "question": "Como se chama um computador de alto desempenho capaz de processar uma quantidade enorme de dados, muitas vezes usado para investigação científica?",
-      "options": [
-        "Supercomputador",
-        "Servidor doméstico",
-        "Tablet",
-        "Computador pessoal (PC)"
-      ],
-      "answer": "0",
-      "theme": "hardware"
-    },
-    {
       "question": "Quem é conhecido por ter desenvolvido o sistema operativo Linux e partilhado o seu código livremente?",
       "options": [
         "Linus Torvalds",
@@ -1220,17 +1110,6 @@
       ],
       "answer": "0",
       "theme": "software"
-    },
-    {
-      "question": "Quando ligas um novo dispositivo ao computador e ele não funciona imediatamente, o que podes precisar instalar?",
-      "options": [
-        "Um driver (controlador)",
-        "Um antivírus adicional",
-        "Um tema para o ambiente de trabalho",
-        "Uma extensão de navegador"
-      ],
-      "answer": "0",
-      "theme": "hardware"
     },
     {
       "question": "Qual é o objetivo do Teste de Turing?",
@@ -1286,50 +1165,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Qual é o nome da tecnologia de conexão sem fios utilizada para fones de ouvido e controladores de jogos sem cabo?",
-      "options": [
-        "Bluetooth",
-        "Ethernet",
-        "VGA",
-        "RSS"
-      ],
-      "answer": "0",
-      "theme": "software"
-    },
-    {
-      "question": "Qual termo se refere a sistemas físicos com sensores e software integrados ligados à Internet (como lâmpadas inteligentes ou sensores de temperatura)?",
-      "options": [
-        "Internet das Coisas (IoT)",
-        "Realidade Virtual",
-        "Sistema Operativo",
-        "Computação Quântica"
-      ],
-      "answer": "0",
-      "theme": "software"
-    },
-    {
-      "question": "Que tipo de ataque aproveita várias máquinas ou dispositivos para sobrecarregar um serviço online e torná-lo indisponível?",
-      "options": [
-        "Ataque DDoS (Distributed Denial of Service)",
-        "Vírus Cavalo de Troia (Trojan)",
-        "Engenharia Social",
-        "Spyware oculto"
-      ],
-      "answer": "0",
-      "theme": "hardware"
-    },
-    {
-      "question": "A arquitetura básica da maioria dos computadores atuais (que inclui processador, memória e armazenamento) é baseada no modelo de quem?",
-      "options": [
-        "Arquitetura de von Neumann",
-        "Arquitetura de Turing",
-        "Arquitetura de Darwin",
-        "Arquitetura de Newton"
-      ],
-      "answer": "0",
-      "theme": "hardware"
     },
     {
       "question": "Qual dos seguintes conceitos está relacionado com aprendizagem automática (machine learning)?",
@@ -1541,17 +1376,6 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual é a diferença entre um URL e um IP?",
-      "options": [
-        "Um URL é um endereço web legível por humanos (como www.exemplo.com), enquanto um IP é um número que identifica um dispositivo na rede",
-        " Não há diferença;ambos referem-se à mesma coisa ",
-        "Um URL é usado para e-mails, e um IP para sites web",
-        "Um IP é mais seguro que um URL e evita hackers"
-      ],
-      "answer": "0",
-      "theme": "redes"
-    },
-    {
       "question": "A sigla “PDF” refere-se a que tipo de formato?",
       "options": [
         "Formato de Documento Portátil (Portable Document Format), geralmente não editável",
@@ -1613,17 +1437,6 @@
         "Hardware",
         "Software",
         "Liveware"
-      ],
-      "answer": "0",
-      "theme": "redes"
-    },
-    {
-      "question": "Qual é o nome da tecnologia de bases de dados que utiliza coleções de blocos encadeados, cada um com registos, e é a base das criptomoedas?",
-      "options": [
-        "Blockchain",
-        "Data Warehouse",
-        "Big Data",
-        "Ethernet"
       ],
       "answer": "0",
       "theme": "redes"
@@ -1726,17 +1539,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Qual destes termos refere-se a uma melhoria de software que é lançada para corrigir problemas ou adicionar funcionalidades?",
-      "options": [
-        "Atualização (update)",
-        "Formatação",
-        "Desfragmentação",
-        "Overclocking"
-      ],
-      "answer": "0",
-      "theme": "software"
     },
     {
       "question": "Qual é o nome dado ao fenómeno de informações falsas ou enganosas espalhadas online?",
@@ -1937,17 +1739,6 @@
       "theme": "hardware"
     },
     {
-      "question": "Que tipo de dispositivo é normalmente usado para transformadores de energia que permitem carregar múltiplos equipamentos via USB?",
-      "options": [
-        "Hub USB com alimentação",
-        "Placa-mãe multiuso",
-        "Router com portas extras",
-        "Extensão de rede elétrica digital"
-      ],
-      "answer": "0",
-      "theme": "hardware"
-    },
-    {
       "question": "Quem foi o criador da linguagem de programação Python?",
       "options": [
         "Guido van Rossum",
@@ -1979,17 +1770,6 @@
       ],
       "answer": "0",
       "theme": "redes"
-    },
-    {
-      "question": "Qual das seguintes afirmações descreve melhor a Lei de Moore?",
-      "options": [
-        "O número de transístores num circuito integrado duplica aproximadamente a cada dois anos, aumentando a capacidade de processamento",
-        "A velocidade da Internet duplica todos os anos em países desenvolvidos",
-        "A cada nova versão do Windows, o tamanho do sistema operativo duplica",
-        "O consumo energético dos computadores reduz-se para metade a cada cinco anos"
-      ],
-      "answer": "0",
-      "theme": "historia"
     },
     {
       "question": "O que é um sistema especialista em Inteligência Artificial?",
@@ -2058,34 +1838,12 @@
       "theme": "redes"
     },
     {
-      "question": "Qual destes termos refere-se a uma simulação digital de um ambiente que pode ser semelhante ou completamente diferente do mundo real?",
-      "options": [
-        "Realidade Virtual (VR)",
-        "Computação Gráfica",
-        "Hipertexto",
-        "Rede Neural"
-      ],
-      "answer": "0",
-      "theme": "historia"
-    },
-    {
       "question": "No contexto da evolução histórica da Internet, o que foi o ARPANET?",
       "options": [
         "A rede precursora da Internet desenvolvida nos anos 1960",
         "Um sistema de comunicações de satélite do exército português",
         "Um protocolo de segurança para emails",
         "Um vírus informático dos anos 1980"
-      ],
-      "answer": "0",
-      "theme": "redes"
-    },
-    {
-      "question": "Qual é o nome da tecnologia que permite minerar criptomoedas usando múltiplos computadores para resolver problemas complexos?",
-      "options": [
-        "Proof of Work",
-        "HTML5",
-        "Cloud Gaming",
-        "Ray Tracing"
       ],
       "answer": "0",
       "theme": "redes"
@@ -2188,17 +1946,6 @@
       ],
       "answer": "0",
       "theme": "historia"
-    },
-    {
-      "question": "Que nome se dá a um código malicioso que se disfarça como um programa útil mas, ao ser executado, causa danos ou roubo de dados?",
-      "options": [
-        "Cavalo de Troia",
-        "Spyware",
-        "Worm",
-        "Adblock"
-      ],
-      "answer": "0",
-      "theme": "software"
     }
   ]
 }
