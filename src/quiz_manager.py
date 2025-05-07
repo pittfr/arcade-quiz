@@ -7,9 +7,11 @@ from config import IMAGES_PATH
 class QuizManager:
     def __init__(self, questions_file_path):
         self.questions = []
+        self.all_questions = []  # store all available questions
         self.current_index = 0
         self.score = 0
         self.total_questions = 20
+        self.questions_file_path = questions_file_path  # store the path for later reloading
         
         # map of theme folders and their available image counts
         self.theme_images = self._load_theme_images()
@@ -118,56 +120,63 @@ class QuizManager:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                all_questions = data.get('questions', [])
+                self.all_questions = data.get('questions', [])
                 
-                # shuffle questions and take only the required number
-                random.shuffle(all_questions)
-                selected_questions = all_questions[:self.total_questions]
-                
-                # process each question
-                for q in selected_questions:
-                    # convert answer from string to integer
-                    original_answer_index = int(q.get('answer', 0))
-                    
-                    # get the options and the correct answer
-                    options = q.get('options', ['', '', '', ''])
-                    correct_answer = options[original_answer_index]
-                    
-                    option_pairs = [(option, i == original_answer_index) for i, option in enumerate(options)]
-                    
-                    # shuffle the pairs
-                    random.shuffle(option_pairs)
-                    
-                    # extract the shuffled options and find the new index of the correct answer
-                    shuffled_options = [pair[0] for pair in option_pairs]
-                    new_answer_index = [i for i, pair in enumerate(option_pairs) if pair[1]][0]
-                    
-                    # get a random image path based on the question's theme
-                    theme = q.get('theme', 'default')
-                    image_path = self._get_random_image_for_theme(theme)
-                    
-                    self.questions.append({
-                        'text': q.get('question', ''),
-                        'options': shuffled_options,
-                        'answer_index': new_answer_index,
-                        'image_path': image_path,
-                        'theme': theme
-                    })
-                
-                # update total questions in case we have fewer than requested
-                self.total_questions = len(self.questions)
+                # select random questions for this session
+                self._selectRandomQuestions()
                 
         except Exception as e:
             print(f"error loading questions: {e}")
             # provide at least one default question if loading fails
-            self.questions = [{
-                'text': 'Failed to load questions. The answer is A',
+            self.all_questions = [{
+                'question': 'Failed to load questions. The answer is A',
                 'options': ['A', 'B', 'C', 'D'],
-                'answer_index': 0,
-                'image_path': os.path.join(IMAGES_PATH, "placeholder.png"),
+                'answer': '0',
                 'theme': 'default'
             }]
-            self.total_questions = len(self.questions)
+            self._selectRandomQuestions()
+
+    def _selectRandomQuestions(self):
+        """select a random set of questions from all available questions"""
+        if len(self.all_questions) > self.total_questions:
+            selected_questions = random.sample(self.all_questions, self.total_questions)
+        else:
+            selected_questions = self.all_questions.copy()
+            random.shuffle(selected_questions)
+        
+        # process each question - randomize options and assign images
+        self.questions = []
+        for q in selected_questions:
+            # convert answer from string to integer
+            original_answer_index = int(q.get('answer', 0))
+            
+            # get the options and the correct answer
+            options = q.get('options', ['', '', '', ''])
+            correct_answer = options[original_answer_index]
+            
+            option_pairs = [(option, i == original_answer_index) for i, option in enumerate(options)]
+            
+            # shuffle the pairs
+            random.shuffle(option_pairs)
+            
+            # extract the shuffled options and find the new index of the correct answer
+            shuffled_options = [pair[0] for pair in option_pairs]
+            new_answer_index = [i for i, pair in enumerate(option_pairs) if pair[1]][0]
+            
+            # get a random image path based on the question's theme
+            theme = q.get('theme', 'default')
+            image_path = self._get_random_image_for_theme(theme)
+            
+            self.questions.append({
+                'text': q.get('question', ''),
+                'options': shuffled_options,
+                'answer_index': new_answer_index,
+                'image_path': image_path,
+                'theme': theme
+            })
+        
+        # update total questions in case we have fewer than requested
+        self.total_questions = len(self.questions)
     
     def getCurrentQuestion(self):
         if 0 <= self.current_index < len(self.questions):
@@ -187,11 +196,9 @@ class QuizManager:
         return True  # more questions available
         
     def reset(self):
+        """Reset the quiz with new random questions"""
         self.current_index = 0
         self.score = 0
-        # shuffle questions and assign new random images for each theme
-        random.shuffle(self.questions)
         
-        # update image paths for all questions
-        for question in self.questions:
-            question['image_path'] = self._get_random_image_for_theme(question['theme'])
+        # select a new set of random questions
+        self._selectRandomQuestions()
