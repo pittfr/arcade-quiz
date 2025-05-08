@@ -62,10 +62,10 @@ class QuizState(GameState):
         self.questionImage.quiz_manager = self.quiz_manager
         
         self.questionLabel = Label(
-                                pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.1)),
+                                pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.20)),
                                 text="",
                                 font=self.default_font,
-                                anchor="midtop",
+                                anchor="center",
                                 max_width=WINDOW_WIDTH - int(WINDOW_WIDTH * 0.1)
                                 )
 
