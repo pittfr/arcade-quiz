@@ -19,10 +19,14 @@ class QuizManager:
         # image cache
         self.image_cache = {}
         
+        # theme image dictionary
+        self.theme_image_dict = {}
+        
+        # preload all images and organize them by theme
+        self._preload_all_images()
+        
         # load questions
         self.loadQuestions(questions_file_path)
-        
-        self._preload_all_images()
     
     def _load_theme_images(self):
         """load available images for each theme folder"""
@@ -73,8 +77,12 @@ class QuizManager:
             self.image_cache[placeholder_path] = pygame.Surface((300, 200))
             self.image_cache[placeholder_path].fill((255, 0, 255))
         
-        # load one image from each theme folder
+        # create the theme dictionary with placeholder
+        self.theme_image_dict["default"] = [self.image_cache[placeholder_path]]
+        
+        # load all images from each theme folder
         for theme, count in self.theme_images.items():
+            self.theme_image_dict[theme] = []
             for i in range(1, count + 1):
                 img_path = os.path.join(IMAGES_PATH, theme, f"{i}.jpg")
                 try:
@@ -84,34 +92,39 @@ class QuizManager:
                     else:
                         img = img.convert()
                     self.image_cache[img_path] = img
+                    self.theme_image_dict[theme].append(img)
                 except Exception as e:
                     print(f"error loading image {img_path}: {e}")
                     # use placeholder for failed loads
                     self.image_cache[img_path] = self.image_cache[placeholder_path]
+                    self.theme_image_dict[theme].append(self.image_cache[placeholder_path])
         
-        print(f"preloaded {len(self.image_cache)} images")
+        print(f"preloaded {len(self.image_cache)} images into {len(self.theme_image_dict)} themes")
     
     def _get_random_image_for_theme(self, theme):
-        """get a random image path for the given theme"""
-        # check if theme exists in the mapped images
-        if theme in self.theme_images and self.theme_images[theme] > 0:
-            # select a random image number from this theme
-            image_number = random.randint(1, self.theme_images[theme])
-            return os.path.join(IMAGES_PATH, theme, f"{image_number}.jpg")
+        """get a random image for the given theme"""
+        # check if theme exists in the theme image dictionary
+        if theme in self.theme_image_dict and len(self.theme_image_dict[theme]) > 0:
+            # select a random image from this theme
+            return random.choice(self.theme_image_dict[theme])
         
-        # if theme doesnt exist or has no images return placeholder
-        return os.path.join(IMAGES_PATH, "placeholder.png")
+        # if theme doesn't exist or has no images return placeholder
+        return self.theme_image_dict["default"][0]
     
-    def get_cached_image(self, path):
-        """get an image from the cache"""
-        if path in self.image_cache:
-            return self.image_cache[path]
+    def get_cached_image(self, image_or_path):
+        """get an image from the cache or return the image if it's already a surface"""
+        # if already a pygame Surface, just return it
+        if isinstance(image_or_path, pygame.Surface):
+            return image_or_path
+            
+        if image_or_path in self.image_cache:
+            return self.image_cache[image_or_path]
         
         # if image somehow isnt in cache load it now
         placeholder_path = os.path.join(IMAGES_PATH, "placeholder.png")
         try:
-            img = pygame.image.load(path)
-            self.image_cache[path] = img
+            img = pygame.image.load(image_or_path)
+            self.image_cache[image_or_path] = img
             return img
         except Exception:
             return self.image_cache[placeholder_path]
@@ -144,7 +157,7 @@ class QuizManager:
             selected_questions = self.all_questions.copy()
             random.shuffle(selected_questions)
         
-        # process each question - randomize options and assign images
+        # process each question
         self.questions = []
         for q in selected_questions:
             # convert answer from string to integer
@@ -163,15 +176,15 @@ class QuizManager:
             shuffled_options = [pair[0] for pair in option_pairs]
             new_answer_index = [i for i, pair in enumerate(option_pairs) if pair[1]][0]
             
-            # get a random image path based on the question's theme
+            # get a random image based on the question's theme
             theme = q.get('theme', 'default')
-            image_path = self._get_random_image_for_theme(theme)
+            image = self._get_random_image_for_theme(theme)
             
             self.questions.append({
                 'text': q.get('question', ''),
                 'options': shuffled_options,
                 'answer_index': new_answer_index,
-                'image_path': image_path,
+                'image': image,
                 'theme': theme
             })
         

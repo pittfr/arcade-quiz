@@ -37,6 +37,8 @@ class Button:
         # set hitbox to match visual dimensions
         self.rect = self.visual_rect.copy()
         
+        self.enabled = True
+        
     def _update_text_surfaces(self):
         """create text surfaces with word wrapping if fixed width is provided."""
         font_height = self.font.get_height()
@@ -89,10 +91,8 @@ class Button:
         if self.fixed_height is not None and self.fixed_height > self.visual_height:
             self.visual_height = self.fixed_height
     
-    def update(self, events, delta_time, showingFeedback, isDisabled):
-        # reset state
-        self.clicked = False
-
+    def update(self, events, delta_time, showingFeedback=False, imageAnimating=False):
+        
         if 0 <= self.transition_progress <= 1:
             self.transition_progress += delta_time / self.transition_duration
             self.transition_progress = min(self.transition_progress, 1)
@@ -112,12 +112,19 @@ class Button:
             if self.bg_color != self.target_bg_color:
                 self.bg_color = self.target_bg_color
                 self.starting_bg_color = self.bg_color
+
+        if showingFeedback or imageAnimating:
+            if hasattr(self, 'is_pressed') and self.is_pressed:
+                self.is_pressed = False
+            return
+                
+        # reset state
+        self.clicked = False
         
         for event in events:
             # handle key press
             if event.type == pygame.KEYDOWN and event.key == self.key:
-                if not showingFeedback and not isDisabled:
-
+                if not showingFeedback and not imageAnimating and self.enabled:
                     if not self.key_pressed:
                         self.key_pressed = True
                         self.clicked = True
@@ -202,5 +209,28 @@ class Button:
             self.rect = self.visual_rect.copy()
 
     def resetKeyState(self):
-        """reset the key pressed state"""
+        """reset the key state to not pressed, regardless of actual key state"""
         self.key_pressed = False
+        self.is_pressed = False 
+
+    def handleEvent(self, event):
+        if not self.enabled:
+            return False
+        
+        if hasattr(self, 'parent') and hasattr(self.parent, 'transitioning') and self.parent.transitioning:
+            return False
+
+        if event.type == pygame.KEYDOWN and self.key and event.key == self.key:
+            if not self.key_pressed:
+                self.key_pressed = True
+                self.clicked = True
+                if self.sound:
+                    self.sound.play()
+                if self.action:
+                    self.action()
+                print(f"{self.text} button has been pressed")
+                return True
+        elif event.type == pygame.KEYUP and self.key and event.key == self.key:
+            self.key_pressed = False
+        
+        return False

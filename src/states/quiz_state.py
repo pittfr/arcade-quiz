@@ -4,7 +4,7 @@ from config import *
 from ui import *
 from utils.animation import Animation
 from quiz_manager import QuizManager
-
+import os
 
 class QuizState(GameState):
     def __init__(self, game):
@@ -156,6 +156,17 @@ class QuizState(GameState):
 
         self.foreground_animation = Animation(0, 255, 4.0)
 
+        # add fade animations for question transitions
+        self.question_transition_opacity = 255
+        self.fade_out_animation = None
+        self.fade_in_animation = None
+        self.transitioning = False
+        
+        # create a surface to use for fading
+        self.transition_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+
+        self.buttons_interactive = True
+
     def _load_current_question(self):
         question = self.quiz_manager.getCurrentQuestion()
         
@@ -176,22 +187,26 @@ class QuizState(GameState):
         # reset button colors
         self._reset_button_colors()
         
-        # get the image path from the question
-        image_path = question.get('image_path')
+        # get the image from the question
+        image = question.get('image')
         
         # load question image if available
-        if image_path:
-            self.questionImage.setPath(image_path, animate=True)
+        if image:
+            self.questionImage.setImage(image, animate=True)
         else:
-            # set to a default placeholder image
-            self.questionImage.setPath(IMAGES_PATH + "placeholder.png", animate=True)
+            # set to a default placeholder if somehow missing
+            default_path = os.path.join(IMAGES_PATH, "placeholder.png")
+            self.questionImage.setPath(default_path, animate=True)
         
         # update progress display
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
         
         # reset feedback
         self.showing_feedback = False
-                
+        self.fade_in_animation = Animation(0, 255, 4)
+        self.question_transition_opacity = 0
+        self.transitioning = True
+
     def _check_answer(self, selected_index):
         if self.showing_feedback:
             return
@@ -211,7 +226,6 @@ class QuizState(GameState):
             elif i != correct_answer_index:
                 # if this is the selected answer and it's wrong, make it red
                 button.setBgColor(self.incorrect_color)
-        
 
         # update progress display
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
@@ -219,7 +233,7 @@ class QuizState(GameState):
         # start feedback timer
         self.feedback_timer = 2.0  # show feedback for 2 seconds
         self.showing_feedback = True
-    
+
     def _reset_button_colors(self):
         """reset all button colors to their original values"""
         self.option1Button.setBgColor(self.original_button_colors['option1'])
@@ -228,28 +242,54 @@ class QuizState(GameState):
         self.option4Button.setBgColor(self.original_button_colors['option4'])
         
     def _next_question(self):
+        # start fade out before moving to next question
+        self.fade_out_animation = Animation(255, 0, 4)
+        self.transitioning = True
+        
         # reset all button key states
         for button in self.option_buttons:
             button.resetKeyState()
 
-        if self.quiz_manager.nextQuestion():
-            self._load_current_question()
-        else:
-            # end of quiz
-            self.isQuizOver = True
+        self.has_more_questions = self.quiz_manager.nextQuestion()
         
     def handle_events(self, events, delta_time):
-        # process button clicks
+        is_animating = (self.showing_feedback or 
+                       self.transitioning or 
+                       (hasattr(self, 'questionImage_animation') and not self.questionImage_animation.is_complete))
+        
         for button in self.option_buttons:
-            button.update(events, delta_time, self.showing_feedback, not self.questionImage_animation.is_complete)
+            button.update(events, delta_time, is_animating, not self.questionImage_animation.is_complete)
         
     def update(self, delta_time):
         # update the image animation
         self.questionImage.update()
         
+        if self.transitioning:
+            if self.fade_out_animation:
+
+                self.question_transition_opacity = int(self.fade_out_animation.update(delta_time))
+                
+                if self.fade_out_animation.is_complete:
+                    self.fade_out_animation = None
+
+                    if self.has_more_questions:
+                        self._load_current_question()
+                    else:
+
+                        self.isQuizOver = True
+            
+            elif self.fade_in_animation:
+
+                self.question_transition_opacity = int(self.fade_in_animation.update(delta_time))
+                
+                if self.fade_in_animation.is_complete:
+                    self.fade_in_animation = None
+                    self.transitioning = False
+        
         # update feedback timer
         if self.showing_feedback and self.feedback_timer > 0:
             self.feedback_timer -= 1/FRAMERATE
+            
             if self.feedback_timer <= 0:
                 self._next_question()
 
@@ -284,6 +324,24 @@ class QuizState(GameState):
 
             button4Y = int(self.button4_animation.update(delta_time))
             self.option4Button.setPosition((self.targetYB4[0], button4Y))
+
+            self.questionImage.update(delta_time)
+
+        if self.transitioning:
+            for button in self.option_buttons:
+                button.resetKeyState()
+
+
+        # update transition state
+        is_animating = (self.transitioning or 
+                       self.showing_feedback or 
+                       (hasattr(self, 'fade_in_animation') and self.fade_in_animation) or
+                       (hasattr(self, 'fade_out_animation') and self.fade_out_animation))
+        
+        self.buttons_interactive = not is_animating
+        
+        for button in self.option_buttons:
+            button.enabled = self.buttons_interactive
 
     def enter(self):
         # reset quiz when entering this state
@@ -324,19 +382,27 @@ class QuizState(GameState):
         # draw progress
         self.progressLabel.draw(screen)
         
-        # draw question
-        self.questionLabel.draw(screen)
+        if not self.transitioning or self.question_transition_opacity > 0:
+            # draw all elements that should fade with the transition
+            
+            fade_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+            
+            self.questionLabel.draw(fade_surface)
+            self.questionImage.draw(fade_surface)
+            
+            for button in self.option_buttons:
+                button.draw(fade_surface)
 
-        # draw the question image
-        self.questionImage.draw(screen)
+            if self.transitioning:
+
+                fade_surface.set_alpha(self.question_transition_opacity)
+                
+
+            screen.blit(fade_surface, (0, 0))
         
-        # draw option buttons
-        for button in self.option_buttons:
-            button.draw(screen)
-
         if self.foregroundOpacity > 0:
             foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
             foreground_color = (*BLUE[:3], self.foregroundOpacity)
             foreground_surface.fill(foreground_color)
             screen.blit(foreground_surface, (0, 0))
-        # pygame.draw.rect(screen, BLUE, self.foregroundRect)
+            # pygame.draw.rect(screen, BLUE, self.foregroundRect)
