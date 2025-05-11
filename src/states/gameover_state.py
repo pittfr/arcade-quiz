@@ -44,7 +44,7 @@ class GameoverState(GameState):
         self.scoreLabel_animation = Animation(0, 255, 4.5, 6.0)
         self.scoreValue_animation = Animation(0, 255, 4.0, 7.5)
 
-        self.foreground_animation = Animation(0, 255, 4.0, 35.0)
+        self.foreground_animation = Animation(0, 255, 4.0, 40.0)
 
 
     def handle_events(self, events, delta_time):

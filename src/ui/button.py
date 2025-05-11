@@ -132,7 +132,6 @@ class Button:
                             self.sound.play()
                         if self.action:
                             self.action()
-                        print(f"{self.text} button has been pressed")
                         return True
                 
                     # reset key_pressed when key is released
