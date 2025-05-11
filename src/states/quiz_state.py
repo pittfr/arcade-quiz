@@ -187,6 +187,12 @@ class QuizState(GameState):
         # reset button colors
         self._reset_button_colors()
         
+        question_bottom = self.questionLabel.rect.bottom
+        buttons_top = min(self.targetYB1[1], self.targetYB3[1])
+        
+        image_y = question_bottom + (buttons_top - question_bottom) // 2
+        self.questionImage.setPosition((int(WINDOW_WIDTH * 0.5), image_y))
+        
         # get the image from the question
         image = question.get('image')
         
