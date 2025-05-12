@@ -34,7 +34,7 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual é o nome de uma pequena pen usada para armazenar e transferir ficheiros?",
+      "question": "Qual é o nome de um pequeno dispositivo usada para armazenar e transferir ficheiros?",
       "options": [
         "Pen USB",
         "Rato sem fios",
@@ -78,7 +78,7 @@
       "theme": "software"
     },
     {
-      "question": "O que deves criar para proteger as tuas contas online?",
+      "question": "Que deves criar para proteger as tuas contas online?",
       "options": [
         "Palavra-passe forte",
         "Nome de utilizador público",
@@ -86,10 +86,10 @@
         "Número de telefone"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
-      "question": "O que faz um antivírus num computador?",
+      "question": "Que faz um antivírus num computador?",
       "options": [
         "Protege contra vírus informáticos",
         "Aumenta o volume do som",
@@ -119,7 +119,7 @@
         "Altifalante"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Que aparelho permite ligar o computador à Internet através de cabos?",
@@ -141,10 +141,10 @@
         "Scratch"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
-      "question": "O que é preciso para assistir a vídeos no YouTube em casa?",
+      "question": "Qual destes é preciso para assistir a vídeos no YouTube em casa?",
       "options": [
         "Ligação à Internet",
         "Impressora a cores",
@@ -152,7 +152,7 @@
         "Consola de jogos"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "software"
     },
     {
       "question": "Qual é o símbolo normalmente usado nos endereços de e-mail?",
@@ -163,10 +163,10 @@
         "%"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
-      "question": "Qual dispositivo é usado para conversar por vídeo no computador?",
+      "question": "Que dispositivo é usado para conversar por vídeo no computador?",
       "options": [
         "Webcam",
         "Teclado",
@@ -177,7 +177,7 @@
       "theme": "hardware"
     },
     {
-      "question": "Onde se liga um rato com fio ao computador?",
+      "question": "Onde se liga um rato com fios ao computador?",
       "options": [
         "Porta USB",
         "Entrada HDMI",
@@ -196,7 +196,7 @@
         "DVD"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Que personagem animada é usada no logótipo do navegador Firefox?",
@@ -207,21 +207,21 @@
         "Leão"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
       "question": "Qual destas é uma forma segura de manter a tua conta de email protegida?",
       "options": [
         "Usar autenticação de dois fatores",
         "Partilhar a palavra-passe com amigos",
-        " Escolher \"1234\" como palavra-passe ",
+        "Escolher \"1234\" como palavra-passe",
         "Usar a mesma palavra-passe em todos os sites"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
-      "question": "Qual é o nome completo da sigla “TI”?",
+      "question": "Qual é o nome completo da sigla \"TI\"?",
       "options": [
         "Tecnologias de Informação",
         "Teoria da Internet",
@@ -229,10 +229,10 @@
         "Terminal Internacional"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "Qual parte do computador guarda informação temporariamente quando estás a trabalhar?",
+      "question": "Que parte do computador guarda informação temporariamente quando estás a trabalhar?",
       "options": [
         "Memória RAM",
         "Disco rígido",
@@ -240,7 +240,7 @@
         "Monitor"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Qual destes é um exemplo de software de apresentação de diapositivos?",
@@ -254,7 +254,7 @@
       "theme": "software"
     },
     {
-      "question": "Qual empresa é conhecida por desenvolver os processadores Core i3, i5 e i7?",
+      "question": "Que empresa é conhecida por desenvolver os processadores Core i3, i5 e i7?",
       "options": [
         "Intel",
         "AMD",
@@ -284,10 +284,10 @@
         "Impressora"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
-      "question": "Qual destas opções representa um tipo de cabo usado para conectar dispositivos de rede?",
+      "question": "Qual destas opções representa um tipo de cabo usado para ligar dispositivos de rede?",
       "options": [
         "Ethernet",
         "HDMI",
@@ -298,7 +298,7 @@
       "theme": "hardware"
     },
     {
-      "question": "O que significa a sigla “SSD” em armazenamento de computadores?",
+      "question": "Que significa a sigla \"SSD\" em armazenamento de computadores?",
       "options": [
         "Unidade de Estado Sólido (Solid State Drive)",
         "Disco Rígido Secundário (Secondary Storage Disk)",
@@ -317,10 +317,10 @@
         "Facebook"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "Qual empresa criou o telemóvel iPhone?",
+      "question": "Que empresa criou o telemóvel iPhone?",
       "options": [
         "Apple",
         "Samsung",
@@ -331,7 +331,7 @@
       "theme": "redes"
     },
     {
-      "question": "No contexto informático, qual o significado de “bug”?",
+      "question": "No contexto informático, qual o significado de \"bug\"?",
       "options": [
         "Erro num programa de software",
         "Inseto dentro do computador",
@@ -339,7 +339,7 @@
         "Unidade de medida de dados"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "historia"
     },
     {
       "question": "Qual destas ferramentas é usada para navegar na Internet?",
@@ -350,7 +350,7 @@
         "Editor de imagens"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
       "question": "Qual é o nome da parte física do computador que podemos tocar, como teclado e monitor?",
@@ -372,10 +372,10 @@
         "Java"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "redes"
     },
     {
-      "question": "Qual componente alimenta todo o computador com energia elétrica?",
+      "question": "Que componente alimenta todo o computador com energia elétrica?",
       "options": [
         "Fonte de alimentação",
         "Placa gráfica",
@@ -383,10 +383,10 @@
         "Rato"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
-      "question": "A que corresponde “AI” em português, no contexto de tecnologia?",
+      "question": "A que corresponde \"AI\" em português, no contexto de tecnologia?",
       "options": [
         "Inteligência Artificial",
         "Análise Informática",
@@ -394,7 +394,18 @@
         "Acesso Integral"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
+    },
+    {
+      "question": "Que rede social é mais usada para partilhar vídeos curtos e divertidos?",
+      "options": [
+        "TikTok",
+        "Gmail",
+        "Instagram",
+        "Spotify"
+      ],
+      "answer": "0",
+      "theme": "redes"
     },
     {
       "question": "Qual das seguintes é uma marca conhecida por produzir computadores e portáteis?",
@@ -405,32 +416,32 @@
         "PlayStation"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Para que serve o Bluetooth?",
       "options": [
-        "Conectar dispositivos sem fios a curta distância",
+        "Ligar dispositivos sem fios a curta distância",
         "Aumentar a memória do computador",
         "Proteger o computador contra vírus",
         "Fornecer energia elétrica"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual destes é um programa anti-malware muito comum?",
       "options": [
-        "Antivírus",
-        "Bluetooth",
-        "WordPad",
-        "Excel"
+        "Malwarebytes",
+        "Adobe Acrobat Reader",
+        "VLC Media Player",
+        "Bug Killer"
       ],
       "answer": "0",
       "theme": "software"
     },
     {
-      "question": "O que significa \"LAN\" em redes de computadores?",
+      "question": "Que significa \"LAN\" em redes de computadores?",
       "options": [
         "Rede de Área Local (Local Area Network)",
         "Linguagem de Aplicação Nativa",
@@ -441,7 +452,7 @@
       "theme": "redes"
     },
     {
-      "question": "Qual dispositivo converte o sinal da Internet (cabos ou fibra) para Wi-Fi em casa?",
+      "question": "Que dispositivo converte o sinal da Internet (cabos ou fibra) para Wi-Fi em casa?",
       "options": [
         "Router (Roteador)",
         "Impressora de rede",
@@ -449,7 +460,7 @@
         "Monitor"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "hardware"
     },
     {
       "question": "Qual destas é uma medida de velocidade de Internet?",
@@ -472,6 +483,17 @@
       ],
       "answer": "0",
       "theme": "software"
+    },
+    {
+      "question": "Se tens de entrar numa conta e o sistema te pede para \"fazer login\", o que precisas de inserir?",
+      "options": [
+        "Nome de utilizador e palavra-passe",
+        "Endereço de e-mail completo",
+        "Código QR de acesso",
+        "Resposta secreta à pergunta"
+      ],
+      "answer": "0",
+      "theme": "historia"
     },
     {
       "question": "Qual destas é uma aplicação de mensagens instantâneas?",
@@ -526,10 +548,10 @@
         "Yahoo"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
-      "question": "Se queres editar uma fotografia no computador, qual tipo de software deves usar?",
+      "question": "Se queres editar uma fotografia no computador, que tipo de software deves usar?",
       "options": [
         "Editor de imagens",
         "Navegador de Internet",
@@ -540,7 +562,7 @@
       "theme": "software"
     },
     {
-      "question": "Qual linguagem de programação é frequentemente usada para criar páginas web dinâmicas?",
+      "question": "Que linguagem de programação é frequentemente usada para criar páginas web dinâmicas?",
       "options": [
         "JavaScript",
         "Microsoft Word",
@@ -548,7 +570,7 @@
         "Snapchat"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
       "question": "Qual destas atividades pode ajudar a proteger o teu computador de ataques informáticos?",
@@ -559,7 +581,7 @@
         "Partilhar dados pessoais em redes sociais"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual destes dispositivos guarda informação mesmo quando o computador está desligado?",
@@ -581,10 +603,10 @@
         "Photoshop"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
-      "question": "Qual termo descreve uma reunião com vídeo através da Internet?",
+      "question": "Que termo descreve uma reunião com vídeo através da Internet?",
       "options": [
         "Videochamada",
         "Filme digital",
@@ -617,7 +639,7 @@
       "theme": "hardware"
     },
     {
-      "question": "O que significa a sigla “GPS”?",
+      "question": "Que significa a sigla \"GPS\"?",
       "options": [
         "Sistema de Posicionamento Global (Global Positioning System)",
         "Programa de Segurança Geral (General Protection Scheme)",
@@ -625,12 +647,12 @@
         "Gestão de Processos de Software (Global Process Software)"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual das seguintes empresas é conhecida pelos seus microprocessadores e placas gráficas?",
       "options": [
-        "AMD",
+        "AMD (Advanced Micro Devices)",
         "Spotify",
         "Tesla",
         "Visa"
@@ -639,9 +661,9 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual linguagem é conhecida por ser focada em estilo e aparência de páginas web?",
+      "question": "Que linguagem é conhecida por ser focada em estilo e aparência de páginas web?",
       "options": [
-        "CSS",
+        "CSS (Cascading Style Sheets)",
         "Python",
         "SQL",
         "PHP"
@@ -661,7 +683,7 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual componente principal de um computador é responsável por processar gráficos em jogos?",
+      "question": "Que componente de um computador é responsável por processar gráficos em jogos?",
       "options": [
         "Placa gráfica (GPU)",
         "Fonte de alimentação",
@@ -669,7 +691,7 @@
         "Placa de rede"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "redes"
     },
     {
       "question": "Qual dos seguintes é um exemplo de sistema de armazenamento em nuvem?",
@@ -680,10 +702,10 @@
         "Google Chrome"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "hardware"
     },
     {
-      "question": "Qual protocolo costuma iniciar o endereço de um site seguro (com encriptação)?",
+      "question": "Que protocolo costuma iniciar o endereço de um site seguro (com encriptação)?",
       "options": [
         "HTTPS",
         "HTTP",
@@ -694,7 +716,7 @@
       "theme": "redes"
     },
     {
-      "question": "O que deves fazer regularmente para não perderes ficheiros importantes em caso de avaria?",
+      "question": "Que deves fazer regularmente para não perderes ficheiros importantes em caso de avaria?",
       "options": [
         "Fazer backups (cópias de segurança)",
         "Reiniciar o computador todos os dias",
@@ -713,10 +735,10 @@
         "PowerPoint"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "O que é um \"drive\" num computador? ",
+      "question": "Qual destes é um \"drive\" num computador?",
       "options": [
         "Unidade de armazenamento ou leitura de dados",
         "Programa que protege contra vírus",
@@ -727,7 +749,7 @@
       "theme": "hardware"
     },
     {
-      "question": "O que significa a sigla “URL” no contexto da Internet?",
+      "question": "Que significa a sigla \"URL\" no contexto da Internet?",
       "options": [
         "Localizador Uniforme de Recursos (Uniform Resource Locator)",
         "Linguagem Unificada de Registo (Unified Registration Language)",
@@ -738,7 +760,7 @@
       "theme": "redes"
     },
     {
-      "question": "Em programação, um “bug” é:",
+      "question": "Em programação, um \"bug\" é:",
       "options": [
         "Um erro ou falha no código",
         "Uma instrução de comentário",
@@ -746,7 +768,7 @@
         "Um estilo de escrita de código limpo"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
       "question": "Uma rede de computadores que abrange uma área ampla, como um país ou continente, chama-se:",
@@ -760,7 +782,7 @@
       "theme": "redes"
     },
     {
-      "question": "Qual é a principal diferença entre um smartphone e um telemóvel antigo?",
+      "question": "Qual é a principal diferença entre um smartphone e um telemóvel antigo (telemóvel básico)?",
       "options": [
         "Os smartphones podem aceder à internet e correr aplicações avançadas",
         "Os smartphones não precisam de bateria",
@@ -768,7 +790,7 @@
         "Os telemóveis antigos têm mais memória do que smartphones"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "redes"
     },
     {
       "question": "Qual das seguintes opções não é um tipo de rede social?",
@@ -779,7 +801,7 @@
         "TikTok"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
       "question": "Em que década o primeiro computador pessoal (PC) se tornou disponível para uso geral?",
@@ -804,7 +826,7 @@
       "theme": "hardware"
     },
     {
-      "question": "Qual das seguintes opções descreve melhor o que é um \"phishing\"?",
+      "question": "Qual das seguintes opções descreve melhor o que é o \"phishing\"?",
       "options": [
         "Uma técnica de fraude online para obter dados pessoais",
         "Um tipo de vírus de computador que se replica automaticamente",
@@ -826,7 +848,7 @@
       "theme": "redes"
     },
     {
-      "question": "O que é computação em nuvem (cloud computing)?",
+      "question": "Qual destes é considerado computação em nuvem (cloud computing)?",
       "options": [
         "Uso de servidores remotos para armazenar, processar e gerir dados via Internet",
         "Computadores pessoais em forma de nuvem física",
@@ -834,7 +856,7 @@
         "Rede local de computadores numa empresa"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual das afirmações sobre um SSD (Solid State Drive) e um HDD (Hard Disk Drive) está correta?",
@@ -845,7 +867,7 @@
         "HDD e SSD são exatamente a mesma coisa"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Qual é o papel do HTML no desenvolvimento web?",
@@ -856,10 +878,10 @@
         "Garantir a segurança de páginas web"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "redes"
     },
     {
-      "question": "O que faz a função “Ctrl + C” num computador com Windows?",
+      "question": "Que faz a função \"Ctrl + C\" num computador com Windows?",
       "options": [
         "Copia o texto ou item selecionado",
         "Fecha a janela ativa",
@@ -867,7 +889,7 @@
         "Abre o menu de ajuda"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "programacao"
     },
     {
       "question": "Qual destas tecnologias é usada para proteger dados enviados na Internet?",
@@ -883,13 +905,13 @@
     {
       "question": "Qual dos seguintes termos relaciona-se com Inteligência Artificial?",
       "options": [
-        "Machine Learning",
+        "Machine Learning (Aprendizagem automática)",
         "Gigabyte",
         "Placa-mãe",
         "Impressão 3D"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
       "question": "Qual é a função principal de um sistema operativo num computador?",
@@ -900,10 +922,10 @@
         "Fabricar os componentes de hardware"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
-      "question": "Qual linguagem de programação é mais associada à criação de aplicações para Android?",
+      "question": "Que linguagem de programação é mais associada à criação de aplicações para Android?",
       "options": [
         "Java",
         "Swift",
@@ -911,10 +933,10 @@
         "COBOL"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "O que é um compilador em programação?",
+      "question": "Qual dos seguintes é um compilador em programação?",
       "options": [
         "Um programa que traduz código fonte para código executável",
         "Um componente físico de refrigeração do computador",
@@ -922,7 +944,7 @@
         "Uma base de dados de programas instalados"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
       "question": "Qual das seguintes pessoas é conhecida por ser um dos fundadores da Microsoft?",
@@ -944,12 +966,12 @@
         "O código do programa está trancado e encriptado para segurança"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "hardware"
     },
     {
-      "question": "Qual é a principal função de um DNS na Internet?",
+      "question": "Qual é a principal função do DNS na Internet?",
       "options": [
-        "Traduzir nomes de domínios em endereços IP",
+        "Traduzir nomes de domínios (como www.exemplo.com) em endereços IP",
         "Proteger o computador contra malware",
         "Acelerar a velocidade de download",
         "Fornecer armazenamento em nuvem gratuito"
@@ -958,18 +980,18 @@
       "theme": "redes"
     },
     {
-      "question": "Qual dos seguintes dispositivos é necessário para aceder a uma rede móvel 4G ou 5G?",
+      "question": "Qual dos seguintes dispositivos é permite aceder a uma rede móvel 4G ou 5G?",
       "options": [
-        "Telemóvel com cartão SIM",
+        "Telemóvel (smartphone) com cartão SIM",
         "Computador fixo com cabo ethernet",
         "Monitor de alta resolução",
         "Teclado com fios"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "hardware"
     },
     {
-      "question": "Qual das opções refere-se a um estilo de desenho animado criado com computador?",
+      "question": "Qual das opções se refere a um estilo de desenho animado criado com computador?",
       "options": [
         "Animação 3D",
         "Realidade Virtual",
@@ -980,7 +1002,7 @@
       "theme": "historia"
     },
     {
-      "question": "Quando visitas uma página com “https://”, o que significa o “s” no endereço?",
+      "question": "Quando visitas uma página com \"https://\", o que significa o \"s\" no endereço?",
       "options": [
         "Que a conexão é segura e encriptada",
         "Que a página está a usar um servidor lento",
@@ -1010,7 +1032,7 @@
         "Sistema de backup automático e gratuito"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "software"
     },
     {
       "question": "Qual destas tecnologias é frequentemente usada para pagar compras aproximando o telemóvel do terminal?",
@@ -1021,7 +1043,7 @@
         "FTP"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
       "question": "O que é um cookie no contexto da Internet?",
@@ -1037,13 +1059,13 @@
     {
       "question": "Qual é a principal diferença entre software livre e software de código aberto?",
       "options": [
-        "Software livre foca-se na liberdade de usar e partilhar, enquanto código aberto foca-se na disponibilidade do código",
-        "Software livre é sempre gratuito e código aberto é sempre pago",
+        "Software livre foca-se na liberdade de usar e partilhar; código aberto foca-se na disponibilidade do código",
+        "Software livre é sempre gratuito; código aberto é sempre pago",
         "Software livre não permite modificar o código, mas o código aberto sim",
         "Não há diferença, são exatamente a mesma coisa"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
       "question": "Qual das seguintes afirmações sobre a linguagem Python está correta?",
@@ -1057,7 +1079,7 @@
       "theme": "programacao"
     },
     {
-      "question": "Qual dispositivo é usado para dar energia a um portátil quando não está ligado à corrente?",
+      "question": "Que dispositivo é usado para dar energia a um portátil quando não está ligado à corrente?",
       "options": [
         "Bateria",
         "Disco externo",
@@ -1076,7 +1098,7 @@
         "Ada Lovelace"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "software"
     },
     {
       "question": "Em design gráfico digital, qual é a função principal do software Adobe Photoshop?",
@@ -1103,7 +1125,7 @@
     {
       "question": "No contexto da programação de jogos, o que é um motor de jogo (game engine)?",
       "options": [
-        "Um software que fornece as funcionalidades básicas para criar jogos",
+        "Um software que fornece as funcionalidades básicas para criar jogos (gráficos, física, som)",
         "Um tipo de computador especializado em jogos online",
         "Uma ferramenta para trapaças em jogos",
         "Um dispositivo físico que melhora os gráficos de um jogo"
@@ -1120,18 +1142,18 @@
         "Gmail"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "O que faz o atalho de teclado \"Ctrl + Z\" na maioria dos programas?",
+      "question": "Que faz o atalho de teclado \"Ctrl + Z\" na maioria dos programas?",
       "options": [
-        "Anula a última ação realizada",
+        "Anula (desfaz) a última ação realizada",
         "Fecha imediatamente o programa",
         "Grava o documento atual",
         "Reinicia o computador"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "hardware"
     },
     {
       "question": "Qual dos seguintes é um tipo de inteligência artificial focado em conversação com utilizadores?",
@@ -1145,7 +1167,7 @@
       "theme": "redes"
     },
     {
-      "question": "Qual dos seguintes conceitos está relacionado com machine learning?",
+      "question": "Qual dos seguintes conceitos está relacionado com aprendizagem automática (machine learning)?",
       "options": [
         "Redes Neuronais Artificiais",
         "Sistemas Operativos Portáteis",
@@ -1175,10 +1197,10 @@
         "GUI"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "O que significa backup incremental?",
+      "question": "Que significa backup incremental?",
       "options": [
         "Cópias de segurança que guardam apenas as mudanças desde a última cópia de segurança completa",
         "Cópias de segurança que ocupam todo o espaço disponível no disco",
@@ -1186,7 +1208,7 @@
         "Cópia de segurança de vários computadores ao mesmo tempo"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
       "question": "Qual das seguintes afirmações sobre a linguagem SQL está correta?",
@@ -1219,10 +1241,10 @@
         "PlayStation OS"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "Qual termo refere-se a uma grande falha global na informática ocorrida na passagem do ano 1999 para 2000?",
+      "question": "Qual destes termos se refere a uma grande falha global na informática ocorrida na passagem do ano 1999 para 2000?",
       "options": [
         "Bug do Milénio (Y2K)",
         "Erro 404",
@@ -1241,7 +1263,7 @@
         "Gerir as aplicações instaladas no computador"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "programacao"
     },
     {
       "question": "Quem foi Steve Jobs?",
@@ -1288,7 +1310,7 @@
       "theme": "redes"
     },
     {
-      "question": "Qual destes termos refere-se ao “cérebro” de um dispositivo móvel que executa as instruções?",
+      "question": "Qual destes termos se refere ao \"cérebro\" de um dispositivo móvel que executa as instruções?",
       "options": [
         "Processador (CPU)",
         "Sensor de luz",
@@ -1307,7 +1329,7 @@
         "Memória gráfica (VRAM)"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Qual é a quantidade de memória RAM mais provável num computador de uso comum atualmente?",
@@ -1321,7 +1343,7 @@
       "theme": "hardware"
     },
     {
-      "question": "O que faz o Google Drive?",
+      "question": "Que faz o Google Drive?",
       "options": [
         "Permite armazenar ficheiros na nuvem e aceder-lhes de qualquer lugar com internet",
         "É um navegador de internet desenvolvido pela Google",
@@ -1329,7 +1351,7 @@
         "É um serviço de streaming de música e vídeo"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "historia"
     },
     {
       "question": "Qual destas opções descreve a principal função de uma placa-mãe?",
@@ -1343,15 +1365,15 @@
       "theme": "hardware"
     },
     {
-      "question": "A sigla “PDF” refere-se a que tipo de formato?",
+      "question": "A sigla \"PDF\" refere-se a que tipo de formato?",
       "options": [
-        "Formato de Documento Portátil (Portable Document Format)",
+        "Formato de Documento Portátil (Portable Document Format), geralmente não editável",
         "Programa de Design Gráfico Profissional (Professional Design Format)",
         "Padrão Dinâmico de Fonte (Portable Dynamic Font)",
         "Dados Processados em Formato (Processed Data Format)"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "redes"
     },
     {
       "question": "Qual destas linguagens de programação é mais conhecida por ser orientada a objetos?",
@@ -1362,10 +1384,10 @@
         "CSS"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": " Quem é conhecido como o \"Pai dos Computadores\" pela criação da máquina analítica? ",
+      "question": "Quem é conhecido como o \"Pai dos Computadores\" pela criação da máquina analítica?",
       "options": [
         "Charles Babbage",
         "Tim Berners-Lee",
@@ -1382,6 +1404,17 @@
         "Uma cópia completa de segurança de uma base de dados",
         "Um formato de compressão de vídeo",
         "Um tipo de vírus invisível para o utilizador"
+      ],
+      "answer": "0",
+      "theme": "historia"
+    },
+    {
+      "question": "Que termo define a capacidade de um sistema continuar a funcionar corretamente mesmo quando alguns dos seus componentes falham?",
+      "options": [
+        "Tolerância a falhas",
+        "Escalabilidade vertical",
+        "Eficiência computacional",
+        "Backup automático"
       ],
       "answer": "0",
       "theme": "historia"
@@ -1409,7 +1442,7 @@
       "theme": "historia"
     },
     {
-      "question": "O que significa compilar um programa em linguagem de programação?",
+      "question": "Que significa compilar um programa em linguagem de programação?",
       "options": [
         "Converter o código fonte para código executável pelo computador",
         "Desenhar a interface gráfica do programa",
@@ -1417,12 +1450,12 @@
         "Aumentar o tamanho de um ficheiro de texto"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
       "question": "Qual destas opções é um exemplo de dispositivo de realidade virtual?",
       "options": [
-        "Óculos VR",
+        "Óculos VR (como Oculus Rift)",
         "Teclado mecânico",
         "Monitor de 144Hz",
         "Rato ótico"
@@ -1472,7 +1505,7 @@
         "Commodore 64"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "redes"
     },
     {
       "question": "Que componente do computador é responsável por manter a hora e data mesmo quando o computador está desligado?",
@@ -1483,7 +1516,7 @@
         "Placa gráfica"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "No contexto da segurança informática, o que é engenharia social?",
@@ -1527,10 +1560,10 @@
         "Uma técnica de design para bases de dados pequenas"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "Qual é uma característica fundamental da arquitetura blockchain?",
+      "question": "Qual destas opções é uma característica fundamental da arquitetura blockchain?",
       "options": [
         "É descentralizada e distribuída, sem um ponto único de falha",
         "Requer sempre uma autoridade central para validar transações",
@@ -1538,7 +1571,7 @@
         "Não é possível saber quem fez cada transação"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual é o nome do computador criado em 1940 e considerado um dos primeiros computadores eletromecânicos programáveis?",
@@ -1560,7 +1593,7 @@
         "Controlar o fluxo de eletricidade no computador"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "redes"
     },
     {
       "question": "O que é um Deepfake?",
@@ -1593,10 +1626,10 @@
         "A tabela mais importante numa base de dados"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "Qual a vantagem de um ecrã OLED comparado a um LCD tradicional?",
+      "question": "Qual destas é uma das vantagens de um ecrã OLED comparado a um LCD tradicional?",
       "options": [
         "Pretos mais profundos e menor consumo de energia",
         "Vida útil significativamente maior sem nenhum risco de burn-in",
@@ -1604,7 +1637,7 @@
         "Apenas usado em monitores CRT antigos"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Qual é o nome do co-fundador do Google conhecido pelo seu papel na criação do motor de busca?",
@@ -1626,10 +1659,10 @@
         "Uma unidade de medida de resolução de ecrã"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "software"
     },
     {
-      "question": "Qual dos seguintes acrónimos refere-se a Realidade Aumentada?",
+      "question": "Qual dos seguintes acrónimos se refere a Realidade Aumentada?",
       "options": [
         "AR (Augmented Reality)",
         "AI (Artificial Intelligence)",
@@ -1659,7 +1692,7 @@
         "O engenheiro que desenvolveu a linguagem de programação C"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "redes"
     },
     {
       "question": "O que é o Open Source no contexto de software?",
@@ -1670,12 +1703,12 @@
         "Jogos de computador sem custos de instalação"
       ],
       "answer": "0",
-      "theme": "software"
+      "theme": "hardware"
     },
     {
       "question": "No contexto de segurança, o que significa 2FA?",
       "options": [
-        "Autenticação de Dois Fatores",
+        "Autenticação de Dois Fatores (dupla verificação de identidade)",
         "Um tipo de algoritmo de compressão de ficheiros",
         "Um formato de vídeo de alta qualidade",
         "Um protocolo de rede sem fios de segunda geração"
@@ -1703,7 +1736,7 @@
         "Margaret Hamilton"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "software"
     },
     {
       "question": "O que foi o Napster no início dos anos 2000?",
@@ -1719,16 +1752,16 @@
     {
       "question": "No contexto do desenvolvimento web, o que é responsive design?",
       "options": [
-        "A técnica de criar sites que se adaptam a diferentes tamanhos de ecrã",
+        "A técnica de criar sites que se adaptam a diferentes tamanhos de ecrã (computador, tablet, telemóvel)",
         "O desenvolvimento de sites com respostas automáticas de chat",
         "A otimização de sites para responder a ataques cibernéticos",
         "Um tipo de design gráfico para realidade virtual"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "redes"
     },
     {
-      "question": "O que é um sistema especialista em Inteligência Artificial?",
+      "question": "Qual destes é um sistema especialista em Inteligência Artificial?",
       "options": [
         "Um programa que simula o conhecimento humano numa área específica para tomar decisões",
         "Um computador que só pode ser usado por peritos de TI",
@@ -1736,10 +1769,10 @@
         "Uma parte do sistema operativo dedicada a utilizadores avançados"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "Qual era o nome do primeiro rato de computador, inventado em 1964?",
+      "question": "Qual destes foi o primeiro rato de computador, inventado em 1964?",
       "options": [
         "Rato de madeira com dois discos metálicos",
         "Trackball mecânico original",
@@ -1747,10 +1780,10 @@
         "MousePad 1.0"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "hardware"
     },
     {
-      "question": "O que é 5G no contexto de telecomunicações?",
+      "question": "O que é o 5G no contexto de telecomunicações?",
       "options": [
         "A quinta geração de redes móveis, com maior velocidade e menor latência",
         "Um protocolo de segurança de rede sem fios",
@@ -1758,7 +1791,7 @@
         "Um jogo de vídeo popular nos anos 90"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "No contexto de cibersegurança, o que é engenharia reversa?",
@@ -1769,7 +1802,7 @@
         "Desenvolver hardware utilizando peças usadas de outros dispositivos"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "redes"
     },
     {
       "question": "Qual dos seguintes é um exemplo de dispositivo de armazenamento externo?",
@@ -1794,7 +1827,7 @@
       "theme": "redes"
     },
     {
-      "question": "No contexto da evolução histórica da Internet, o que foi o ARPANET?",
+      "question": "No contexto da evolução histórica da Internet, o que foi a ARPANET?",
       "options": [
         "A rede precursora da Internet desenvolvida nos anos 1960",
         "Um sistema de comunicações de satélite do exército português",
@@ -1802,10 +1835,10 @@
         "Um vírus informático dos anos 1980"
       ],
       "answer": "0",
-      "theme": "historia"
+      "theme": "redes"
     },
     {
-      "question": "Qual componente do computador é responsável por manter o sistema arrefecido durante operações intensivas?",
+      "question": "Que componente do computador é responsável por manter o sistema arrefecido durante operações intensivas?",
       "options": [
         "Ventoinha / Cooler",
         "Unidade de DVD",
@@ -1813,7 +1846,7 @@
         "Modem"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Que nome se dá a um programa malicioso que faz uma cópia de si mesmo para se espalhar para outros computadores?",
@@ -1846,7 +1879,7 @@
         "A técnica de aumentar a resolução de uma imagem digital sem perder qualidade"
       ],
       "answer": "0",
-      "theme": "programacao"
+      "theme": "historia"
     },
     {
       "question": "Qual é o propósito da tecnologia VPN?",
@@ -1857,10 +1890,10 @@
         "Fazer login automático em múltiplos sites"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "O que faz um interruptor (transistor) num circuito eletrónico?",
+      "question": "Que faz um interruptor (transistor) num circuito eletrónico?",
       "options": [
         "Atua como um interruptor que pode ligar ou desligar correntes elétricas e é usado para representar bits (0 e 1)",
         "Faz a conversão de corrente alternada em contínua",
@@ -1868,18 +1901,18 @@
         "Ajusta a temperatura do processador"
       ],
       "answer": "0",
-      "theme": "hardware"
+      "theme": "historia"
     },
     {
       "question": "Qual destas afirmações descreve o conceito de edge computing?",
       "options": [
-        "Processar dados mais perto da fonte, reduzindo latência e carga na nuvem",
+        "Processar dados mais perto da fonte (dispositivos de rede), reduzindo latência e carga na nuvem",
         "Usar computadores no limite do espaço, como em satélites",
-        "Um termo para descrever o design de interfaces de utilizador “na margem” do ecrã",
+        "Um termo para descrever o design de interfaces de utilizador \"na margem\" do ecrã",
         "Uma técnica de overclock extremo para CPUs de última geração"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
       "question": "Qual é a diferença fundamental entre realidade virtual (VR) e realidade aumentada (AR)?",
@@ -1890,10 +1923,10 @@
         "Não há diferença significativa entre VR e AR, são termos intercambiáveis"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     },
     {
-      "question": "Qual termo descreve melhor um conteúdo que mistura elementos reais e virtuais interativos em tempo real?",
+      "question": "Que termo descreve melhor um conteúdo que mistura elementos reais e virtuais interativos em tempo real?",
       "options": [
         "Realidade Mista (MR)",
         "Imersão Digital (ID)",
@@ -1901,7 +1934,7 @@
         "Realidade Simulada (RS)"
       ],
       "answer": "0",
-      "theme": "redes"
+      "theme": "historia"
     }
   ]
 }
