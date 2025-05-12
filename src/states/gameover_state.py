@@ -30,7 +30,7 @@ class GameoverState(GameState):
         
         self.scoreValueLabel = Label(
                             pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.575)),
-                            text="20/20",
+                            text="10/10",
                             font=self.default_font,
                             text_color=DARK_BLUE,
                             opacity=0
@@ -85,9 +85,9 @@ class GameoverState(GameState):
     def enter(self):
         # convert score to string to ensure setText can handle it properly
         if hasattr(self.game, 'score'):
-            score_text = f" {self.game.score}/20" if self.game.score < 10 else f"{self.game.score}/20"
+            score_text = f" {self.game.score}/10" if self.game.score < 10 else f"{self.game.score}/20"
         else:
-            score_text = " 0/20"  # default if score is not set
+            score_text = " 0/10"  # default if score is not set
             
         self.scoreValueLabel.setText(score_text)
         

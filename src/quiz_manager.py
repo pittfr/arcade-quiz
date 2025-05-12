@@ -12,7 +12,7 @@ class QuizManager:
         self.all_questions = []  # store all available questions
         self.current_index = 0
         self.score = 0
-        self.total_questions = 20
+        self.total_questions = 10
         self.questions_file_path = questions_file_path  # store the path for later reloading
         
         # map of theme folders and their available image counts
