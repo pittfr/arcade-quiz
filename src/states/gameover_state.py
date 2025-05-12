@@ -38,17 +38,24 @@ class GameoverState(GameState):
         
         self.foregroundRect = pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         
+        self.transitioning = False
+        
         # create animations
-        self.circle_animation = Animation(0, 300, 4.0, 1.5)
-        self.fire_animation = Animation(0, 255, 5.0, 5.5)
-        self.scoreLabel_animation = Animation(0, 255, 4.5, 6.0)
-        self.scoreValue_animation = Animation(0, 255, 4.0, 7.5)
+        self.circle_animation = Animation(0, 300, 0.5, 1.0)
+        self.fire_animation = Animation(0, 255, 0.5, 1.75)
+        self.scoreLabel_animation = Animation(0, 255, 0.5, 2.0)
+        self.scoreValue_animation = Animation(0, 255, 0.5, 2.25)
 
-        self.foreground_animation = Animation(0, 255, 4.0, 40.0)
-
+        self.foreground_animation = Animation(0, 255, 0.5)
+        self.auto_transition_timer = 0
 
     def handle_events(self, events, delta_time):
-        pass
+        self.current_events = events
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if self.scoreValue_animation.is_complete and not self.transitioning:
+                    self.transitioning = True
+                    self.foreground_animation.reset()
 
     def update(self, delta_time):
         # update animations and apply their values
@@ -63,10 +70,17 @@ class GameoverState(GameState):
         scoreValue_opacity = int(self.scoreValue_animation.update(delta_time))
         self.scoreValueLabel.setOpacity(scoreValue_opacity)
 
-        self.foregroundOpacity = int(self.foreground_animation.update(delta_time))
+        if self.scoreValue_animation.is_complete and not self.transitioning:
+            self.auto_transition_timer += delta_time
+            if self.auto_transition_timer >= 5.0:
+                self.transitioning = True
+                self.foreground_animation.reset()
 
-        if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
-            self.game.stateManager.changeState("starting")
+        if self.transitioning:
+            self.foregroundOpacity = int(self.foreground_animation.update(delta_time))
+            
+            if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
+                self.game.stateManager.changeState("starting")
 
     def enter(self):
         # convert score to string to ensure setText can handle it properly
@@ -76,13 +90,16 @@ class GameoverState(GameState):
             score_text = " 0/20"  # default if score is not set
             
         self.scoreValueLabel.setText(score_text)
-
+        
+        self.transitioning = False
+        self.auto_transition_timer = 0
+        
         # reset all animations when entering the state
         self.fire_animation.reset()
         self.circle_animation.reset()
         self.scoreLabel_animation.reset()
         self.scoreValue_animation.reset()
-        self.foreground_animation.reset()
+        self.foreground_animation.reset()        
         
         # reset UI elements
         self.circleRadius = 0

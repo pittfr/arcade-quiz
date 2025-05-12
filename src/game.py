@@ -22,33 +22,36 @@ class Game:
 
         self.score = 0
 
-        self.delta_time = self.clock.tick(FRAMERATE) / 1000.0
-
-    def handleEvents(self):
+    def handleEvents(self, dt):
         events = pygame.event.get()
-        
 
         for event in events:
             if event.type == pygame.QUIT:
                 self.running = False
         
-        self.stateManager.handleEvents(events, self.delta_time)
+        self.stateManager.handleEvents(events, dt)
 
-    def update(self):
-        self.stateManager.update(self.delta_time)
+    def update(self, dt):
+        self.stateManager.update(dt)
 
-    def draw(self, delta_time):
+    def draw(self, dt):
         
-        self.stateManager.draw(delta_time, self.screen)
+        self.stateManager.draw(dt, self.screen)
 
         pygame.display.flip()
         pygame.time.Clock().tick(FRAMERATE)
 
     def run(self):
+        clock = pygame.time.Clock()
+
         while self.running:
-            delta_time = self.clock.tick(FRAMERATE) / 1000.0
 
-            self.handleEvents()
-
-            self.update()
-            self.draw(delta_time)
+            dt = clock.tick(FRAMERATE) / 1000.0  
+            
+            self.handleEvents(dt)
+            
+            self.update(dt)
+            
+            self.draw(dt)
+            
+            pygame.display.flip()

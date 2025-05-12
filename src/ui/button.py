@@ -20,7 +20,7 @@ class Button:
         self.starting_bg_color = bg_color
         self.target_bg_color = bg_color
         self.transition_progress = 1
-        self.transition_duration = .6
+        self.transition_duration = .1
 
         self.padding = padding
         self.fixed_width = width

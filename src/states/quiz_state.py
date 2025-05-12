@@ -15,6 +15,11 @@ class QuizState(GameState):
         self.isQuizOver = False
 
         self.foregroundOpacity = 0
+        
+        # add question timer
+        self.question_timer = 0
+        self.max_question_time = 60.0
+        self.timing_out = False
 
         # create quiz manager
         self.quiz_manager = QuizManager(QUESTIONS_PATH)
@@ -144,17 +149,17 @@ class QuizState(GameState):
 
         # create animations
 
-        self.progressLabel_animation = Animation(-200, 20, 3.0, 2.0)
+        self.progressLabel_animation = Animation(-200, 20, 0.5, 0.5)
 
-        self.questionLabel_animation = Animation(0, 255, 4.0, 8.5)
-        self.questionImage_animation = Animation(0, 255, 4.0, 10.5)
+        self.questionLabel_animation = Animation(0, 255, 0.5, 1.5)
+        self.questionImage_animation = Animation(0, 255, 0.5, 1.75)
 
-        self.button1_animation = Animation(self.targetYB1[1] + self.buttonStartYOffset, self.targetYB1[1], 4.0, 2.5)
-        self.button2_animation = Animation(self.targetYB2[1] + self.buttonStartYOffset, self.targetYB2[1], 4.0, 3.0)
-        self.button3_animation = Animation(self.targetYB3[1] + self.buttonStartYOffset, self.targetYB3[1], 4.0, 3.5)
-        self.button4_animation = Animation(self.targetYB4[1] + self.buttonStartYOffset, self.targetYB4[1], 4.0, 4.0)
+        self.button1_animation = Animation(self.targetYB1[1] + self.buttonStartYOffset, self.targetYB1[1], 0.75, 0.5)
+        self.button2_animation = Animation(self.targetYB2[1] + self.buttonStartYOffset, self.targetYB2[1], 0.75, 0.75)
+        self.button3_animation = Animation(self.targetYB3[1] + self.buttonStartYOffset, self.targetYB3[1], 0.75, 1.0)
+        self.button4_animation = Animation(self.targetYB4[1] + self.buttonStartYOffset, self.targetYB4[1], 0.75, 1.25)
 
-        self.foreground_animation = Animation(0, 255, 4.0)
+        self.foreground_animation = Animation(0, 255, 0.5)
 
         # add fade animations for question transitions
         self.question_transition_opacity = 255
@@ -174,6 +179,10 @@ class QuizState(GameState):
             # no more questions, go to game over
             self.game.stateManager.changeState("gameover")
             return
+        
+        # reset question timer when loading a new question
+        self.question_timer = 0
+        self.timing_out = False
         
         # update UI with question data
         self.questionLabel.setText(question['text'])
@@ -209,7 +218,7 @@ class QuizState(GameState):
         
         # reset feedback
         self.showing_feedback = False
-        self.fade_in_animation = Animation(0, 255, 4)
+        self.fade_in_animation = Animation(0, 255, 0.5)
         self.question_transition_opacity = 0
         self.transitioning = True
 
@@ -237,7 +246,7 @@ class QuizState(GameState):
         self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
         
         # start feedback timer
-        self.feedback_timer = 2.0  # show feedback for 2 seconds
+        self.feedback_timer = 1.0  # show feedback for 1 second
         self.showing_feedback = True
 
     def _reset_button_colors(self):
@@ -249,7 +258,7 @@ class QuizState(GameState):
         
     def _next_question(self):
         # start fade out before moving to next question
-        self.fade_out_animation = Animation(255, 0, 4)
+        self.fade_out_animation = Animation(255, 0, 0.5)
         self.transitioning = True
         
         # reset all button key states
@@ -270,9 +279,23 @@ class QuizState(GameState):
         # update the image animation
         self.questionImage.update()
         
+        if not self.showing_feedback and not self.transitioning and not self.timing_out:
+            self.question_timer += delta_time
+            
+            # check if the question timer has reached the maximum time
+            if self.question_timer >= self.max_question_time:
+                self.timing_out = True
+                self.foreground_animation.reset()
+                
+        if self.timing_out:
+            self.foregroundOpacity = int(self.foreground_animation.update(delta_time))
+            
+            if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
+                self.game.stateManager.changeState("starting")
+                return
+        
         if self.transitioning:
             if self.fade_out_animation:
-
                 self.question_transition_opacity = int(self.fade_out_animation.update(delta_time))
                 
                 if self.fade_out_animation.is_complete:
@@ -281,11 +304,9 @@ class QuizState(GameState):
                     if self.has_more_questions:
                         self._load_current_question()
                     else:
-
                         self.isQuizOver = True
             
             elif self.fade_in_animation:
-
                 self.question_transition_opacity = int(self.fade_in_animation.update(delta_time))
                 
                 if self.fade_in_animation.is_complete:

@@ -10,50 +10,28 @@ class StartingState(GameState):
 
         self.startingQuiz = False
 
-        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 120)
+        self.default_font = pygame.font.Font(DEFAULT_FONT_PATH, 80)
 
         self.foregroundOpacity = 0
 
-        self.quizLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2.3),
-                            font=self.default_font,
-                            visible=True,
-                            text="QUIZ",
-                            opacity=0
-                            )
+        self.miguelistaImage = Image(
+            pos=(WINDOW_WIDTH // 2, int(WINDOW_HEIGHT * 0.3)),
+            image_path=IMAGES_PATH + "miguelista.png",
+            scale=0
+        )
 
-        self.informaticaLabel = Label(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 1.75),
-                            font=self.default_font,
-                            visible=True,
-                            text="INFORMÁTICA",
-                            opacity=0
-                            )
-        
-        self.fireImage = Image(
-                            pos=(WINDOW_WIDTH // 2, WINDOW_HEIGHT// 3.5),
-                            image_path=(IMAGES_PATH + "firecsm.png"),
-                            scale=0.3,
-                            opacity=0,
-                            )
-        
-        fireDimensions = self.fireImage.getDimensions()
-
-        self.fireBoxBaseDimensions = (fireDimensions[0] * 3.5, fireDimensions[1] * 1.3)
-
-        self.fireBox = pygame.Rect(0, 0, 0, 0)
-        self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT// 3.5)
-        self.fireBoxRadius = 75
+        self.pressioneBotaoLabel = Label(
+            pos=(WINDOW_WIDTH // 2, int(WINDOW_HEIGHT * 0.7)),
+            text="Pressione um botão para começar",
+            font=self.default_font
+        )
 
         # create animations
 
-        self.quizLabel_animation = Animation(0, 255, 4.0, 3.0)
-        self.informaticaLabel_animation = Animation(0, 255, 4.0, 5.5)
-        self.fireBox_animation = Animation(0.0, 1.0, 3.5, 8.0)
-        self.fireImage_animation = Animation(0, 255, 4.0, 10.5)
+        self.miguelistaImage_animation = Animation(0, 1, 1.0, 1.0)
+        self.pressioneBotaoLabel_animation = Animation(0, 255, 1)
 
-
-        self.foreground_animation = Animation(0, 255, 4.0)
+        self.foreground_animation = Animation(0, 255, 0.5)
 
         self.current_events = []
 
@@ -61,7 +39,7 @@ class StartingState(GameState):
         self.current_events = events
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if self.fireImage_animation.is_complete:
+                if self.pressioneBotaoLabel_animation.is_complete:
                     self.startingQuiz = True
 
     def update(self, delta_time):
@@ -71,59 +49,36 @@ class StartingState(GameState):
             if self.foreground_animation.is_complete and self.foregroundOpacity >= 255:
                 self.game.stateManager.changeState("quiz")
         else:
-            # fire box animation
-            scale_factor = self.fireBox_animation.update(delta_time)
-            
-            new_width = int(self.fireBoxBaseDimensions[0] * scale_factor)
-            new_height = int(self.fireBoxBaseDimensions[1] * scale_factor)
-            
-            center = self.fireBox.center
-            
-            self.fireBox.width = new_width
-            self.fireBox.height = new_height
-            
-            self.fireBox.center = center
+            # miguelista image animation
+            miguelista_scale = self.miguelistaImage_animation.update(delta_time)
+            self.miguelistaImage.setScale(miguelista_scale)
 
-            # fire image animation
-            fire_opacity = int(self.fireImage_animation.update(delta_time))
-            self.fireImage.setOpacity(fire_opacity)
-
-            # quiz label animation
-            quiz_opacity = int(self.quizLabel_animation.update(delta_time))
-            self.quizLabel.setOpacity(quiz_opacity)
-
-            # informatica label animation
-            informatica_opacity = int(self.informaticaLabel_animation.update(delta_time))
-            self.informaticaLabel.setOpacity(informatica_opacity)
+            # pressione botao label animation
+            if self.miguelistaImage_animation.is_complete:
+                pressione_botao_opacity = int(self.pressioneBotaoLabel_animation.update(delta_time))
+                self.pressioneBotaoLabel.setOpacity(pressione_botao_opacity)
 
     def enter(self):
         self.startingQuiz = False
 
         # reset all animations when entering the state
-        self.informaticaLabel_animation.reset()
-        self.quizLabel_animation.reset()
-        self.fireBox_animation.reset()
-        self.fireImage_animation.reset()
+        self.miguelistaImage_animation.reset()
+        self.pressioneBotaoLabel_animation.reset()
         self.foreground_animation.reset()
 
         # reset UI elements
-        self.informaticaLabel.setOpacity(0)
-        self.quizLabel.setOpacity(0)
-        self.fireBox.width = 0
-        self.fireBox.height = 0
-        self.fireBox.center = (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3.5)
-        self.fireImage.setOpacity(0)
+        self.miguelistaImage.setScale(0)
+        self.pressioneBotaoLabel.setOpacity(0)
         self.foregroundOpacity = 0
 
     def draw(self, delta_time, screen):
         self.game.screen.fill(BLUE)
 
-        self.quizLabel.draw(screen)
-        self.informaticaLabel.draw(screen)
+        if self.miguelistaImage.scale > 0:
+            self.miguelistaImage.draw(screen)
 
-        pygame.draw.rect(screen, DARK_BLUE, self.fireBox, 0, self.fireBoxRadius)
-
-        self.fireImage.draw(screen)
+        if self.pressioneBotaoLabel.opacity > 0:
+            self.pressioneBotaoLabel.draw(screen)
 
         if self.foregroundOpacity > 0:
             foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)

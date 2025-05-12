@@ -18,7 +18,7 @@ QUESTIONS_PATH = "data/questions.json"
 IMAGES_PATH = "assets/images/"
 
 #colors
-BLUE = (0, 144, 211)
+BLUE = (37, 44, 89)
 DARK_BLUE = (0, 123, 182)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
