@@ -24,7 +24,7 @@ class GameoverState(GameState):
                             pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.45)),
                             text="Pontuação",
                             font=self.scoreLabel_font,
-                            text_color=DARK_BLUE,
+                            text_color=BLUE,
                             opacity=0
                             )
         
@@ -32,7 +32,7 @@ class GameoverState(GameState):
                             pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.575)),
                             text="10/10",
                             font=self.default_font,
-                            text_color=DARK_BLUE,
+                            text_color=BLUE,
                             opacity=0
                             )
         
@@ -110,7 +110,7 @@ class GameoverState(GameState):
 
 
     def draw(self, delta_time, screen):
-        self.game.screen.fill(BLUE)
+        self.game.screen.fill(DARK_BLUE)
         
         pygame.draw.circle(screen, WHITE, (int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.45)), int(self.circleRadius))
 
@@ -122,7 +122,7 @@ class GameoverState(GameState):
 
         if self.foregroundOpacity > 0:
             foreground_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
-            foreground_color = (*BLUE[:3], self.foregroundOpacity)
+            foreground_color = (*DARK_BLUE[:3], self.foregroundOpacity)
             foreground_surface.fill(foreground_color)
             screen.blit(foreground_surface, (0, 0))
         # pygame.draw.rect(screen, BLUE, self.foregroundRect)
