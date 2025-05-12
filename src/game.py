@@ -1,6 +1,7 @@
 import pygame
 from config import *
 from states import *
+from quiz_manager import QuizManager
 del GameState
 
 class Game:
@@ -11,6 +12,8 @@ class Game:
 
         self.clock = pygame.time.Clock()
         self.running = True
+
+        self.quizManager = QuizManager(QUESTIONS_PATH)
 
         self.stateManager = StateManager(self)
 

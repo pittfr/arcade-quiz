@@ -13,6 +13,7 @@ class QuizManager:
         self.current_index = 0
         self.score = 0
         self.total_questions = 10
+        self.max_question_time = 60.0
         self.questions_file_path = questions_file_path  # store the path for later reloading
         
         # map of theme folders and their available image counts

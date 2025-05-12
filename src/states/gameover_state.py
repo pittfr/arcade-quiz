@@ -4,6 +4,7 @@ from config import *
 from ui import *
 from utils import ease_in_out
 from utils.animation import Animation
+from utils.logger import log_quiz_data
 
 class GameoverState(GameState):
     def __init__(self, game):
@@ -108,6 +109,14 @@ class GameoverState(GameState):
         self.scoreValueLabel.setOpacity(0)
         self.foregroundOpacity = 0
 
+        question_times = []
+        if "quiz" in self.game.stateManager.states:
+            quiz_state = self.game.stateManager.states["quiz"]
+            if hasattr(quiz_state, "question_times"):
+                question_times = quiz_state.question_times
+
+        # log quiz data
+        log_quiz_data(self.game.score, self.game.quizManager.total_questions, question_times)
 
     def draw(self, delta_time, screen):
         self.game.screen.fill(DARK_BLUE)

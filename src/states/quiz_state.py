@@ -3,7 +3,6 @@ from states import GameState
 from config import *
 from ui import *
 from utils.animation import Animation
-from quiz_manager import QuizManager
 import os
 
 class QuizState(GameState):
@@ -18,11 +17,7 @@ class QuizState(GameState):
         
         # add question timer
         self.question_timer = 0
-        self.max_question_time = 60.0
         self.timing_out = False
-
-        # create quiz manager
-        self.quiz_manager = QuizManager(QUESTIONS_PATH)
         
         # timer for showing feedback
         self.feedback_timer = 0
@@ -43,7 +38,7 @@ class QuizState(GameState):
         # UI Elements
         self.progressLabel = Label(
                             pos=(WINDOW_WIDTH // 2, -100),
-                            text=f" 0/{self.quiz_manager.total_questions}",
+                            text=f" 0/{self.game.quizManager.total_questions}",
                             font=self.progress_font,
                             text_color=WHITE,
                             anchor="midtop"
@@ -64,7 +59,7 @@ class QuizState(GameState):
             border_radius=10
         )
         
-        self.questionImage.quiz_manager = self.quiz_manager
+        self.questionImage.quiz_manager = self.game.quizManager
         
         self.questionLabel = Label(
                                 pos=(int(WINDOW_WIDTH * 0.5), int(WINDOW_HEIGHT * 0.20)),
@@ -172,8 +167,10 @@ class QuizState(GameState):
 
         self.buttons_interactive = True
 
+        self.question_times = []  # tracks the time spent on each question
+
     def _load_current_question(self):
-        question = self.quiz_manager.getCurrentQuestion()
+        question = self.game.quizManager.getCurrentQuestion()
         
         if not question:
             # no more questions, go to game over
@@ -214,7 +211,7 @@ class QuizState(GameState):
             self.questionImage.setPath(default_path, animate=True)
         
         # update progress display
-        self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
+        self.progressLabel.setText(f" {self.game.quizManager.current_index + 1}/{self.game.quizManager.total_questions}")
         
         # reset feedback
         self.showing_feedback = False
@@ -226,12 +223,14 @@ class QuizState(GameState):
         if self.showing_feedback:
             return
         
-        correct = self.quiz_manager.checkAnswer(selected_index)
+        self.question_times.append(self.question_timer)
+        
+        correct = self.game.quizManager.checkAnswer(selected_index)
 
         if correct:
             self.game.score += 1
 
-        correct_answer_index = self.quiz_manager.getCurrentQuestion()['answer_index']
+        correct_answer_index = self.game.quizManager.getCurrentQuestion()['answer_index']
 
         # set button colors based on correctness
         for i, button in enumerate(self.option_buttons):
@@ -243,7 +242,7 @@ class QuizState(GameState):
                 button.setBgColor(self.incorrect_color)
 
         # update progress display
-        self.progressLabel.setText(f" {self.quiz_manager.current_index + 1}/{self.quiz_manager.total_questions}")
+        self.progressLabel.setText(f" {self.game.quizManager.current_index + 1}/{self.game.quizManager.total_questions}")
         
         # start feedback timer
         self.feedback_timer = 1.0  # show feedback for 1 second
@@ -265,7 +264,7 @@ class QuizState(GameState):
         for button in self.option_buttons:
             button.resetKeyState()
 
-        self.has_more_questions = self.quiz_manager.nextQuestion()
+        self.has_more_questions = self.game.quizManager.nextQuestion()
         
     def handle_events(self, events, delta_time):
         is_animating = (self.showing_feedback or 
@@ -283,7 +282,7 @@ class QuizState(GameState):
             self.question_timer += delta_time
             
             # check if the question timer has reached the maximum time
-            if self.question_timer >= self.max_question_time:
+            if self.question_timer >= self.game.quizManager.max_question_time:
                 self.timing_out = True
                 self.foreground_animation.reset()
                 
@@ -372,7 +371,7 @@ class QuizState(GameState):
 
     def enter(self):
         # reset quiz when entering this state
-        self.quiz_manager.reset()
+        self.game.quizManager.reset()
         self._load_current_question()
         self.showing_feedback = False
         self.isQuizOver = False
