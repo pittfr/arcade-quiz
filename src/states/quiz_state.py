@@ -154,10 +154,10 @@ class QuizState(GameState):
         self.questionLabel_animation = Animation(0, 255, 0.5, 1.5)
         self.questionImage_animation = Animation(0, 255, 0.5, 1.75)
 
-        self.button1_animation = Animation(self.targetYB1[1] + self.buttonStartYOffset, self.targetYB1[1], 0.75, 0.5)
-        self.button2_animation = Animation(self.targetYB2[1] + self.buttonStartYOffset, self.targetYB2[1], 0.75, 0.75)
-        self.button3_animation = Animation(self.targetYB3[1] + self.buttonStartYOffset, self.targetYB3[1], 0.75, 1.0)
-        self.button4_animation = Animation(self.targetYB4[1] + self.buttonStartYOffset, self.targetYB4[1], 0.75, 1.25)
+        self.button1_animation = Animation(self.targetYB1[1] + self.buttonStartYOffset, self.targetYB1[1], 0.5, 0.5)
+        self.button2_animation = Animation(self.targetYB2[1] + self.buttonStartYOffset, self.targetYB2[1], 0.5, 0.6)
+        self.button3_animation = Animation(self.targetYB3[1] + self.buttonStartYOffset, self.targetYB3[1], 0.5, 0.7)
+        self.button4_animation = Animation(self.targetYB4[1] + self.buttonStartYOffset, self.targetYB4[1], 0.5, 0.8)
 
         self.foreground_animation = Animation(0, 255, 0.5)
 
